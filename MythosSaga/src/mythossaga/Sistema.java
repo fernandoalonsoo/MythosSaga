@@ -5,6 +5,7 @@
 package mythossaga;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Scanner;
 
 /**
@@ -12,23 +13,38 @@ import java.util.Scanner;
  * @author guill
  */
 class Sistema {
+    public HashMap<String, User> usuarios;
+
+    public Sistema(){
+        usuarios = new HashMap<>();
+    }
 
     Scanner scanner = new Scanner(System.in);
-    
+
     public void menuInicio() throws IOException {
         System.out.println("Menu");
         System.out.println("Introduzca 1 para registrarse");
         System.out.println("Introduzca 2 para iniciar sesion");
         int opcion = scanner.nextInt();
         if (opcion == 1){
-            System.out.println("chao");
+            System.out.println("Introduce tu nombre de usuario: ");
+            String usuario = scanner.next();
+            //Comprobar si es posible ese usuario
+            System.out.println("Introduce tu nick para el personaje: ");
+            String nick = scanner.next();
+            //Comprobar si es posible ese nick
+            System.out.println("Introduce tu contraseña: ");
+            String contrasena = scanner.next();
+            User user = new UsuarioJugador(usuario, nick, contrasena);
+            usuarios.put(usuario, user);
+
         } else if (opcion == 2){
             System.out.print("Introduce el usuario: ");
             String usuario = scanner.next(); // Lee la entrada del usuario como una cadena
             System.out.println("Usuario introducido: " + usuario);
             System.out.print("Introduce la contraseña: ");
-            String contraseña = scanner.next(); // Lee la entrada del usuario como una cadena
-            System.out.println("Contraseña introducida: " + contraseña);
+            String contrasena = scanner.next(); // Lee la entrada del usuario como una cadena
+            System.out.println("Contraseña introducida: " + contrasena);
             scanner.close();
         } 
     }

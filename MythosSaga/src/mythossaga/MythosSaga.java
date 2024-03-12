@@ -15,7 +15,6 @@ public class MythosSaga {
      */
     public static void main(String[] args) {
         GameManager gameManager = new GameManager();
-        //Dispe d = new Dispe();
         
         gameManager.run();
     }

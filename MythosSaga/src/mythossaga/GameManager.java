@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 class GameManager {
     public void run(){       
         Sistema system = new Sistema(); 
-        
+
         try {
             system.menuInicio();
         } catch (IOException ex) {
