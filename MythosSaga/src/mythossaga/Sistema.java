@@ -27,26 +27,35 @@ class Sistema {
         System.out.println("Introduzca 2 para iniciar sesion");
         int opcion = scanner.nextInt();
         if (opcion == 1){
-            System.out.println("Introduce tu nombre de usuario: ");
-            String usuario = scanner.next();
-            //Comprobar si es posible ese usuario
-            System.out.println("Introduce tu nick para el personaje: ");
-            String nick = scanner.next();
-            //Comprobar si es posible ese nick
-            System.out.println("Introduce tu contraseña: ");
-            String contrasena = scanner.next();
-            User user = new UsuarioJugador(usuario, nick, contrasena);
-            usuarios.put(usuario, user);
+            registro();
 
         } else if (opcion == 2){
-            System.out.print("Introduce el usuario: ");
-            String usuario = scanner.next(); // Lee la entrada del usuario como una cadena
-            System.out.println("Usuario introducido: " + usuario);
-            System.out.print("Introduce la contraseña: ");
-            String contrasena = scanner.next(); // Lee la entrada del usuario como una cadena
-            System.out.println("Contraseña introducida: " + contrasena);
-            scanner.close();
-        } 
+            login();
+
+        }
+        scanner.close();
     }
-    
+
+    private void login() {
+        System.out.print("Introduce el usuario: ");
+        String usuario = scanner.next(); // Lee la entrada del usuario como una cadena
+        System.out.println("Usuario introducido: " + usuario);
+        System.out.print("Introduce la contraseña: ");
+        String contrasena = scanner.next(); // Lee la entrada del usuario como una cadena
+        System.out.println("Contraseña introducida: " + contrasena);
+    }
+
+    private void registro() {
+        System.out.println("Introduce tu nombre de usuario: ");
+        String usuario = scanner.next();
+        //Comprobar si es posible ese usuario
+        System.out.println("Introduce tu nick para el personaje: ");
+        String nick = scanner.next();
+        //Comprobar si es posible ese nick
+        System.out.println("Introduce tu contraseña: ");
+        String contrasena = scanner.next();
+        User user = new UsuarioJugador(usuario, nick, contrasena);
+        this.usuarios.put(usuario, user);
+    }
+
 }
