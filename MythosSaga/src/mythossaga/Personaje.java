@@ -4,15 +4,17 @@ import java.util.List;
 
 public class Personaje {
     private String nombre;
-    private List<Arma> armas;
-    private Arma armaActiva;
-    private List<Armadura> armaduras;
-    private Armadura armaduraActiva;
+    private List<Equipo> armas;
+    private Equipo armaActiva;
+    private List<Equipo> armaduras;
+    private Equipo armaduraActiva;
     private int salud;
-    private List<Debilidad> debilidades;
-    private List<Fortaleza>  fortalezas;
+    private List<Modificador> debilidades;
+    private List<Modificador>  fortalezas;
     private int oro;
     private int poder;
     private List<Esbirros> esbirros;
+
+    //falta habilidad especial
 
 }

@@ -22,16 +22,18 @@ class Sistema {
     Scanner scanner = new Scanner(System.in);
 
     public void menuInicio() throws IOException {
-        System.out.println("Menu");
-        System.out.println("Introduzca 1 para registrarse");
-        System.out.println("Introduzca 2 para iniciar sesion");
-        int opcion = scanner.nextInt();
-        if (opcion == 1){
-            registro();
-
-        } else if (opcion == 2){
-            login();
-
+        int opcion = 0;
+        while (opcion != 3) {
+            System.out.println("Menu");
+            System.out.println("Introduzca 1 para registrarse");
+            System.out.println("Introduzca 2 para iniciar sesion");
+            System.out.println("Introduzca 3 para salir del sistema");
+            opcion = scanner.nextInt();
+            if (opcion == 1) {
+                registro();
+            } else if (opcion == 2) {
+                login();
+            }
         }
         scanner.close();
     }
@@ -43,6 +45,7 @@ class Sistema {
         System.out.print("Introduce la contraseña: ");
         String contrasena = scanner.next(); // Lee la entrada del usuario como una cadena
         System.out.println("Contraseña introducida: " + contrasena);
+        
     }
 
     private void registro() {
@@ -56,6 +59,20 @@ class Sistema {
         String contrasena = scanner.next();
         User user = new UsuarioJugador(usuario, nick, contrasena);
         this.usuarios.put(usuario, user);
+        menuUsuario();
+        
+    }
+
+    private void menuUsuario() {
+        int opcion = 0;
+        while (opcion != 4) {
+            System.out.println("Menu");
+            System.out.println("Introduzca 1 para editar personaje");
+            System.out.println("Introduzca 2 para gestionar desafios");
+            System.out.println("Introduzca 3 para darse de baja");
+            System.out.println("Introduzca 4 para cerrar sesión");
+            opcion = scanner.nextInt();
+        }
     }
 
 }
