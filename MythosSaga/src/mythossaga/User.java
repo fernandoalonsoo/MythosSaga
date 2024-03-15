@@ -1,5 +1,7 @@
 package mythossaga;
 
+import java.util.Scanner;
+
 public abstract class User {
     private String nombre;
     private String nick;
@@ -35,5 +37,8 @@ public abstract class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void menuGestionarPersonajes(Scanner scanner) {
     }
 }
