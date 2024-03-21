@@ -49,7 +49,9 @@ class Sistema {
         if (usuarios.containsKey(usuario) && usuarios.get(usuario).getPassword().equals(contrasena)) { //puede que se pueda quitar la primera condicion del if
             System.out.println("Te has logeado correctamente en la aplicación");
             userActivo = usuarios.get(usuario);
-            menuUsuario();
+            if (userActivo instanceof UsuarioJugador){
+                menuUsuario();
+            }
         } else {
             System.out.println("Nombre de usuario o contraseña incorrecto");
         }
@@ -87,6 +89,7 @@ class Sistema {
                 case 1:
                     System.out.println("Gestionando personaje...");
                     userActivo.menuGestionarPersonajes(scanner);
+                    break;
                 case 2:
                     System.out.println("Gestionando desafíos...");
                     break;

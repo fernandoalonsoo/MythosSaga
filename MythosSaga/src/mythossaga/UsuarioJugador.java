@@ -34,7 +34,7 @@ public class UsuarioJugador extends User {
             System.out.println("4. Salir del menu");
             opcion = scanner.nextInt();
             switch (opcion){
-                case 1: registroPersonaje();
+                case 1: registroPersonaje(scanner);
                 case 2: darBajaPersonaje();
                 case 3: gestionarEquipo();
                 case 4:
@@ -45,8 +45,15 @@ public class UsuarioJugador extends User {
         } while (opcion != 4);
     }
 
-    public void registroPersonaje() {
+    public void registroPersonaje(Scanner scanner) {
+        System.out.println("Ingrese el nombre del personaje:");
+        String nombre = scanner.next();
 
+        System.out.println("Ingrese la salud del personaje:");
+        int salud = scanner.nextInt();
+        scanner.nextLine();
+
+        // Continuar con el resto de los atributos...
     }
 
     public void darBajaPersonaje() {
