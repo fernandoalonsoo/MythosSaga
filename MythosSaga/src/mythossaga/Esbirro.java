@@ -1,10 +1,10 @@
 package mythossaga;
 
-public class Esbirros {
+public abstract class Esbirro {
     private TypeEsbirro nombre;
     private int salud;
 
-    public Esbirros(TypeEsbirro nombre, int salud) {
+    public Esbirro(TypeEsbirro nombre, int salud) {
         this.nombre = nombre;
         if (salud >= 1 && salud <= 3) {
             this.salud = salud;
