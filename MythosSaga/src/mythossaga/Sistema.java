@@ -26,7 +26,9 @@ class Sistema {
     public void menuInicio() throws IOException {
         int opcion = 0;
         while (opcion != 3) {
-            System.out.println("\nMenu");
+            System.out.println("-----------------------");
+            System.out.println("  MYTHOSSAGA ");
+            System.out.println("-----------------------");
             System.out.println("Introduzca 1 para registrarse");
             System.out.println("Introduzca 2 para iniciar sesion");
             System.out.println("Introduzca 3 para salir del sistema");
