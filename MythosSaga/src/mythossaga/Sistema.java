@@ -93,7 +93,11 @@ class Sistema {
                     userActivo.menuGestionarPersonajes(scanner);
                     break;
                 case 2:
-                    System.out.println("Gestionando desafíos...");
+                    if (userActivo.comprobarPersonajes()){
+                        System.out.println("Gestionando desafíos...");
+                    } else {
+                        System.out.println("No hay personajes creados, no se puede desafiar");
+                    }
                     break;
                 case 3:
                     System.out.println("Consultando estadísticas...");

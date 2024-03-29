@@ -8,7 +8,7 @@ public class Licantropo extends Personaje{
 
     public Licantropo(String nombre, List<Equipo> armas, Equipo armaActiva, List<Equipo> armaduras, Equipo armaduraActiva, int salud,
                       List<Modificador> debilidades, List<Modificador> fortalezas, int oro, int poder, List<Esbirro> esbirros, Integer rabia) {
-        super(nombre, armas, armaActiva, armaduras, armaduraActiva, salud, debilidades, fortalezas, oro, poder, esbirros);
+        super(nombre, salud, poder);
         this.rabia = rabia;
     }
 

@@ -41,4 +41,7 @@ public abstract class User {
 
     public void menuGestionarPersonajes(Scanner scanner) {
     }
+    public boolean comprobarPersonajes(){
+        return false;
+    }
 }

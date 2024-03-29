@@ -11,4 +11,9 @@ public class Arma extends Equipo {
     public int getManos() {
         return manos;
     }
+
+    @Override
+    public String toString() {
+        return "Nombre: " + this.nombre + ", Modificador de ataque: " + this.modificador + ", Manos ocupadas: " + this.manos;
+    }
 }
