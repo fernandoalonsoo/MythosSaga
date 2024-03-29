@@ -5,9 +5,7 @@
 package mythossaga;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  *
@@ -16,9 +14,15 @@ import java.util.Scanner;
 class Sistema {
     public HashMap<String, User> usuarios;
     public User userActivo;
+    public HashSet<Desafio> desafios;
+
+
 
     public Sistema(){
         usuarios = new HashMap<>();
+        Operador operador = new Operador("admin", "admin", "adimpass");
+        usuarios.put("admin", operador);
+        desafios = new HashSet<>();
     }
 
     Scanner scanner = new Scanner(System.in);
@@ -44,41 +48,63 @@ class Sistema {
     }
 
     private void login() {
-        System.out.print("Introduce el usuario: ");
-        String usuario = scanner.next();
+        System.out.print("Introduce el nick: ");
+        String nick = scanner.next();
         System.out.print("Introduce la contraseña: ");
         String contrasena = scanner.next();
-        if (usuarios.containsKey(usuario) && usuarios.get(usuario).getPassword().equals(contrasena)) { //puede que se pueda quitar la primera condicion del if
+        if (usuarios.containsKey(nick) && usuarios.get(nick).getPassword().equals(contrasena)) { //puede que se pueda quitar la primera condicion del if
             System.out.println("Te has logeado correctamente en la aplicación");
-            userActivo = usuarios.get(usuario);
+            userActivo = usuarios.get(nick);
             if (userActivo instanceof UsuarioJugador){
                 menuUsuario();
+            } else {
+                menuOperadores();
             }
         } else {
             System.out.println("Nombre de usuario o contraseña incorrecto");
         }
     }
 
+    private void menuOperadores() {
+
+    }
+
     private void registro() {
-        System.out.println("Introduce tu nombre de usuario: ");
-        String usuario = scanner.next();
-        if(!usuarios.containsKey(usuario)) {
+        System.out.println("Introduce tu nick de usuario: ");
+        String nick = scanner.next();
+        if(!usuarios.containsKey(nick)) {
             System.out.println("Introduce tu nick para el personaje: ");
-            String nick = scanner.next();
-            //Comprobar si es posible ese nick
+            String usuario = scanner.next();
             System.out.println("Introduce tu contraseña: ");
             String contrasena = scanner.next();
             User user = new UsuarioJugador(usuario, nick, contrasena);
-            this.usuarios.put(usuario, user);
+            this.usuarios.put(nick, user);
             this.userActivo = user;
             menuUsuario();
         } else {
-            System.out.println("Ese nombre de usuario ya esta cogido");
+            System.out.println("Ese nick de usuario ya esta cogido");
         }
     }
 
     private void menuUsuario() {
         int opcion;
+        for(Desafio desafio: desafios){
+            if(desafio.isComprobado() && Objects.equals(desafio.getDesafiado(), userActivo.getNick())){
+                System.out.println("Tienes un desafio pendiente de " + desafio.getDesafiante());
+                System.out.println("Si desea aceptarlo escriba 1, escriba cualquier otra cosa si desea rechazarlo");
+                String accept = scanner.next();
+                if(Objects.equals(accept, "1")){
+                    //Se lleva acabo el combate
+                } else{
+                    desafio.setTerminado(true);
+                    double oro = 0.1 * desafio.getApuesta();
+                    UsuarioJugador desafiante = (UsuarioJugador) usuarios.get(desafio.getDesafiante());
+                    desafiante.actualizarOro(oro);
+                    UsuarioJugador desafiado = (UsuarioJugador) usuarios.get(desafio.getDesafiado());
+                    desafiado.actualizarOro(-oro);
+                }
+            }
+        }
         do {
             System.out.println("\nMenu");
             System.out.println("Introduzca 1 para gestionar personaje");
@@ -94,6 +120,7 @@ class Sistema {
                     break;
                 case 2:
                     if (userActivo.comprobarPersonajes()){
+                        gestionarDesafios();
                         System.out.println("Gestionando desafíos...");
                     } else {
                         System.out.println("No hay personajes creados, no se puede desafiar");
@@ -108,6 +135,7 @@ class Sistema {
                     if(Objects.equals(confirmacion, "SI")){
                         System.out.println("Dándose de baja...");
                         System.out.println(userActivo.getNombre() + " ya no existe");
+                        usuarios.remove(userActivo.getNick());
                         opcion = 5;
                     } else {System.out.println("No se ha dado de baja");}
                     break;
@@ -119,6 +147,32 @@ class Sistema {
                     break;
             }
         } while (opcion != 5);
+    }
+
+    private void gestionarDesafios() {
+        System.out.println("DESAFIO\nIntroduzca el nick de a quien quiere desafiar");
+        String desafiado = scanner.next();
+        if (usuarios.containsKey(desafiado)){
+            while(true) {
+                System.out.println("Introduzca la cantidad de oro a apostar");
+                int oro_apostado = scanner.nextInt();
+                if (oro_apostado > 0 && usuarios.get(desafiado).oroSuficiente(oro_apostado)){
+                    crearDesafio(userActivo.getNick(), desafiado, oro_apostado);
+                    break;
+                } else {
+                    System.out.println("No puedes apostar esa cantidad de oro");
+                }
+            }
+
+        } else {
+            System.out.println("No se ha encontrado a ningun jugador con ese nick");
+        }
+
+    }
+
+    private void crearDesafio(String nick, String desafiado, int oroApostado) {
+        Desafio desafio = new Desafio(nick, desafiado, oroApostado);
+        desafios.add(desafio);
     }
 
 }

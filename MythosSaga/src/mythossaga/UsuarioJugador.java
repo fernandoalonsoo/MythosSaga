@@ -234,4 +234,16 @@ public class UsuarioJugador extends User {
     public boolean comprobarPersonajes(){
         return !personajes.isEmpty();
     }
+
+    @Override
+    public boolean oroSuficiente(int oro){
+        Personaje personaje = personajes.get(this.getNick());
+        return oro < personaje.getOro();
+    }
+    public void actualizarOro(double oro){
+        Personaje personaje = personajes.get(this.getNick());
+        double newOro = personaje.getOro();
+        newOro = newOro + oro;
+        personaje.setOro(newOro);
+    }
 }

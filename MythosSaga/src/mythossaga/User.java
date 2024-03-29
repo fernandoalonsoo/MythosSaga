@@ -44,4 +44,8 @@ public abstract class User {
     public boolean comprobarPersonajes(){
         return false;
     }
+
+    public boolean oroSuficiente(int oro){
+        return false;
+    }
 }

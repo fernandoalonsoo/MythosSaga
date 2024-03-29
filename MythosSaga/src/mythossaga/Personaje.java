@@ -15,7 +15,7 @@ public class Personaje {
     private int salud;
     private List<Modificador> debilidades;
     private List<Modificador>  fortalezas;
-    private int oro;
+    private double oro;
     private int poder;
     private List<Esbirro> esbirros;
 
@@ -91,11 +91,11 @@ public class Personaje {
         this.fortalezas = fortalezas;
     }
 
-    public int getOro() {
+    public double getOro() {
         return oro;
     }
 
-    public void setOro(int oro) {
+    public void setOro(double oro) {
         this.oro = oro;
     }
 
