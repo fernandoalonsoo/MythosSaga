@@ -1,11 +1,12 @@
 package mythossaga;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-public class Personaje {
+public class Personaje implements Serializable {
     private String nombre;
     private HashMap<String, Equipo> armas;
     private Equipo[] armaActiva;

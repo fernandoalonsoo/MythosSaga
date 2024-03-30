@@ -4,6 +4,8 @@
  */
 package mythossaga;
 
+import java.io.IOException;
+
 /**
  *
  * @author guill
@@ -13,7 +15,7 @@ public class MythosSaga {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
         GameManager gameManager = new GameManager();
         
         gameManager.run();

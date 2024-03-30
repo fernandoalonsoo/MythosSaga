@@ -1,8 +1,9 @@
 package mythossaga;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Vampiro extends Personaje{
+public class Vampiro extends Personaje implements Serializable {
 
     private Integer edad;
     private Integer puntosSangre;

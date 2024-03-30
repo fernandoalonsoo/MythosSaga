@@ -1,8 +1,9 @@
 package mythossaga;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Licantropo extends Personaje{
+public class Licantropo extends Personaje implements Serializable {
 
     private Integer rabia;
 

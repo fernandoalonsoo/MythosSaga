@@ -1,9 +1,9 @@
 package mythossaga;
 
-public class Ghouls extends Esbirro{
+public class Ghoul extends Esbirro{
     private Integer dependencia;
 
-    public Ghouls(TypeEsbirro nombre, int salud, Integer dependencia) {
+    public Ghoul(TypeEsbirro nombre, int salud, Integer dependencia) {
         super(nombre, salud);
         this.dependencia = dependencia;
     }

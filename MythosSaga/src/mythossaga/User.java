@@ -1,12 +1,14 @@
 package mythossaga;
 
+import java.io.Serializable;
 import java.util.Scanner;
 
-public abstract class User {
+public abstract class User implements Serializable {
     private String nombre;
     private String nick;
     private String password;
 
+    public User(){}
     public User(String nombre, String nick, String password) {
         this.nombre = nombre;
         this.nick = nick;
