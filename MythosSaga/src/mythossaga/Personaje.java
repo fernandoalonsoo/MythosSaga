@@ -126,9 +126,6 @@ public class Personaje implements Serializable {
         this.armas = new HashMap<>();
     }
 
-    public Personaje() {
-
-    }
 
     public void addArmas(Arma arma) {
         if (this.armas == null){

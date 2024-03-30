@@ -91,8 +91,12 @@ public class UsuarioJugador extends User implements Serializable {
         System.out.println("Valores correctos, personaje creado");
         scan.nextLine();
         Personaje personaje = new Personaje(nombre, salud, poder);
-        personajes.put(this.getNick(), personaje);
+        crearPersonaje(personaje);
 
+    }
+
+    public void crearPersonaje(Personaje personaje){
+        personajes.put(this.getNick(), personaje);
     }
 
     public void darBajaPersonaje() {

@@ -1,6 +1,8 @@
 package mythossaga;
 
-public class Desafio {
+import java.io.Serializable;
+
+public class Desafio implements Serializable {
     private String desafiante;
     private String desafiado;
     private int apuesta;

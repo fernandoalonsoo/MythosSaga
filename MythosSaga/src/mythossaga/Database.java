@@ -56,11 +56,26 @@ public class Database implements Serializable {
         this.usuarios =  new HashMap<>();
         this.desafios =  new ArrayList<>();
 
-//        usuarios = new HashMap<>();
-//        Operador operador = new Operador("admin", "admin", "adimpass");
-//        usuarios.put("admin", operador);
-//        desafios = new HashSet<>();
+        Operador fer = new Operador("fer", "nano", "1234");
 
+        UsuarioJugador juan = new UsuarioJugador("jrb", "jrb", "1234");
+
+        UsuarioJugador guille = new UsuarioJugador("guille", "guille", "1234");
+
+        UsuarioJugador alex = new UsuarioJugador("alex", "alex", "1234");
+
+        Personaje personaje1 = new Personaje("jrb", 4, 3);
+        Personaje personaje2 = new Personaje("guille", 4, 3);
+        Personaje personaje3 = new Personaje("alex", 4, 3);
+
+        juan.crearPersonaje(personaje1);
+        guille.crearPersonaje(personaje2);
+        alex.crearPersonaje(personaje3);
+
+        this.usuarios.put(fer.getNick(), fer);
+        this.usuarios.put(juan.getNick(), juan);
+        this.usuarios.put(guille.getNick(), guille);
+        this.usuarios.put(alex.getNick(), alex);
     }
 }
 
