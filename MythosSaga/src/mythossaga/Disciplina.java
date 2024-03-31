@@ -1,5 +1,7 @@
 package mythossaga;
 
+import java.io.Serializable;
+
 public class Disciplina extends Habilidad{
     private Integer costePuntosSangre;
 

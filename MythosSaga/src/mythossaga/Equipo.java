@@ -1,6 +1,8 @@
 package mythossaga;
 
-public abstract class Equipo {
+import java.io.Serializable;
+
+public abstract class Equipo implements Serializable {
     protected String nombre;
     protected int modificador;
 

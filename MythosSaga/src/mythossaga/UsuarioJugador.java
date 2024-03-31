@@ -6,7 +6,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class UsuarioJugador extends User implements Serializable {
     private static final AtomicInteger contadorRegistros = new AtomicInteger(0);
-    private HashMap<String, Personaje> personajes;
+    private Personaje personaje;
     private String numeroRegistro;
     private transient Scanner scan;
 
@@ -15,7 +15,6 @@ public class UsuarioJugador extends User implements Serializable {
         super(nombre, nick, password);
         String numeroRegistro = generarNumeroRegistro();
         this.numeroRegistro = numeroRegistro;
-        this.personajes = new HashMap<>();
     }
 
     private String generarNumeroRegistro() {
@@ -36,7 +35,7 @@ public class UsuarioJugador extends User implements Serializable {
         this.scan = scanner;
         do {
             System.out.println("\nMENU GESTION PERSONAJE");
-            if (personajes.containsKey(this.getNick())){
+            if (personaje != null){
                 System.out.println("1. Dar de baja personaje");
                 System.out.println("2. Gestion armas y armaduras");
                 System.out.println("3. Salir del menu");
@@ -71,11 +70,20 @@ public class UsuarioJugador extends User implements Serializable {
     }
 
     public void registroPersonaje() {
+        Scanner input = new Scanner(System.in);
         int salud;
         int poder;
 
         System.out.println("Ingrese el nombre del personaje:");
         String nombre = scan.next();
+
+
+
+        System.out.println("Elija una opcion:");
+        System.out.println("1.- Seleccionar vampiro");
+        System.out.println("2.- Seleccionar licantropo");
+        System.out.println("3.- Seleccionar cazador");
+        int opcion = input.nextInt();
 
         System.out.println("Ingrese el poder y la salud, la suma entre los valores no puede ser mayor que 7");
         do {
@@ -88,15 +96,29 @@ public class UsuarioJugador extends User implements Serializable {
             }
         } while (salud + poder > 7);
 
-        System.out.println("Valores correctos, personaje creado");
-        scan.nextLine();
-        Personaje personaje = new Personaje(nombre, salud, poder);
-        crearPersonaje(personaje);
+        switch (opcion){
+            case 1: input.nextLine();
+                this.personaje = new Vampiro("Vampiro");
+                break;
 
+            case 2: input.nextLine();
+                this.personaje = new Licantropo("Licantropo");
+                break;
+
+            case 3: input.nextLine();
+                this.personaje = new Cazador("Cazador");
+                break;
+
+            case 4: break;
+
+            default:System.out.println("\n--- Por favor seleccione una opcion correcta ---\n");
+                break;
+        }
     }
 
+
     public void crearPersonaje(Personaje personaje){
-        personajes.put(this.getNick(), personaje);
+        this.personaje = personaje;
     }
 
     public void darBajaPersonaje() {
@@ -104,12 +126,11 @@ public class UsuarioJugador extends User implements Serializable {
         String confirmacion = scan.next();
         if(Objects.equals(confirmacion, "ELIMINAR")){
             System.out.println("Dando de baja al personaje...");
-            personajes.remove(this.getNick());
+            personaje = null;
         } else {System.out.println("No se ha dado de baja");}
     }
 
     public void gestionarEquipo() {
-        Personaje personaje = personajes.get(this.getNick());
         Scanner scanner = new Scanner (System.in);
         ArrayList<Equipo> equipo = new ArrayList<>();
 
@@ -176,7 +197,6 @@ public class UsuarioJugador extends User implements Serializable {
     }
 
     private void cambiarArmaActiva(Scanner scanner, ArrayList<Equipo> equipo) {
-        Personaje personaje = personajes.get(this.getNick());
         HashMap<String, Equipo> armas = personaje.getArmas();
         System.out.println("Estas son las armas de las que dispones");
         for (Equipo arma : armas.values()) {
@@ -243,16 +263,14 @@ public class UsuarioJugador extends User implements Serializable {
 
     @Override
     public boolean comprobarPersonajes(){
-        return !personajes.isEmpty();
+        return personaje != null;
     }
 
     @Override
     public boolean oroSuficiente(int oro){
-        Personaje personaje = personajes.get(this.getNick());
         return oro < personaje.getOro();
     }
     public void actualizarOro(double oro){
-        Personaje personaje = personajes.get(this.getNick());
         double newOro = personaje.getOro();
         newOro = newOro + oro;
         personaje.setOro(newOro);

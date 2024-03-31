@@ -1,6 +1,8 @@
 package mythossaga;
 
-public class Arma extends Equipo {
+import java.io.Serializable;
+
+public class Arma extends Equipo implements Serializable {
     private int manos;
 
     public Arma(String nombre, int modificador, int manos) {

@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-public class Personaje implements Serializable {
+public abstract class Personaje implements Serializable {
     private String nombre;
     private HashMap<String, Equipo> armas;
     private Equipo[] armaActiva;
@@ -19,6 +19,37 @@ public class Personaje implements Serializable {
     private double oro;
     private int poder;
     private List<Esbirro> esbirros;
+
+
+
+    public Personaje(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public Personaje(String nombre, int salud, int poder) {
+        this.nombre = nombre;
+        this.salud = salud;
+        this.oro = 100;
+        this.poder = poder;
+        this.armaActiva = new Equipo[2];
+        this.armaduras = new HashMap<>();
+        this.armas = new HashMap<>();
+    }
+
+    public Personaje(String nombre, HashMap<String, Equipo> armas, Equipo[] armaActiva, HashMap<String, Equipo> armaduras, Equipo armaduraActiva, int salud,
+                     List<Modificador> debilidades, List<Modificador> fortalezas, double oro, int poder, List<Esbirro> esbirros) {
+        this.nombre = nombre;
+        this.armas = armas;
+        this.armaActiva = armaActiva;
+        this.armaduras = armaduras;
+        this.armaduraActiva = armaduraActiva;
+        this.salud = salud;
+        this.debilidades = debilidades;
+        this.fortalezas = fortalezas;
+        this.oro = oro;
+        this.poder = poder;
+        this.esbirros = esbirros;
+    }
 
     public String getNombre() {
         return nombre;
@@ -114,16 +145,6 @@ public class Personaje implements Serializable {
 
     public void setEsbirros(List<Esbirro> esbirros) {
         this.esbirros = esbirros;
-    }
-
-    public Personaje(String nombre, int salud, int poder) {
-        this.nombre = nombre;
-        this.salud = salud;
-        this.oro = 100;
-        this.poder = poder;
-        this.armaActiva = new Equipo[2];
-        this.armaduras = new HashMap<>();
-        this.armas = new HashMap<>();
     }
 
 

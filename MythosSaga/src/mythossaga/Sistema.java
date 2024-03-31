@@ -28,7 +28,6 @@ class Sistema {
                 login(database);
             }
         }
-        database.saveData();
         System.out.println("Hasta luego rey");
         scanner.close();
     }
@@ -38,7 +37,7 @@ class Sistema {
         System.out.println("Introduce tu nick de usuario: ");
         String nick = scanner.next();
         if(!usuarios.containsKey(nick)) {
-            System.out.println("Introduce tu nick para el personaje: ");
+            System.out.println("Introduce tu nickname de usuario: ");
             String usuario = scanner.next();
             System.out.println("Introduce tu contraseña: ");
             String contrasena = scanner.next();

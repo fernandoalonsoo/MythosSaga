@@ -1,6 +1,7 @@
 package mythossaga;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
 
 public class Vampiro extends Personaje implements Serializable {
@@ -8,10 +9,25 @@ public class Vampiro extends Personaje implements Serializable {
     private Integer edad;
     private Integer puntosSangre;
 
-    public Vampiro(String nombre, List<Equipo> armas, Equipo armaActiva, List<Equipo> armaduras, Equipo armaduraActiva, int salud,
-                   List<Modificador> debilidades, List<Modificador> fortalezas, int oro, int poder, List<Esbirro> esbirros, Integer edad, Integer puntosSangre) {
-        super(nombre, salud, poder);
+    public Vampiro(String nombre) {
+        super(nombre);
+    }
 
+    public Vampiro(String nombre, Integer edad, Integer puntosSangre) {
+        super(nombre);
+        this.edad = edad;
+        this.puntosSangre = puntosSangre;
+    }
+
+    public Vampiro(String nombre, int salud, int poder, Integer edad, Integer puntosSangre) {
+        super(nombre, salud, poder);
+        this.edad = edad;
+        this.puntosSangre = puntosSangre;
+    }
+
+    public Vampiro(String nombre, HashMap<String, Equipo> armas, Equipo[] armaActiva, HashMap<String, Equipo> armaduras, Equipo armaduraActiva, int salud,
+                   List<Modificador> debilidades, List<Modificador> fortalezas, double oro, int poder, List<Esbirro> esbirros, Integer edad, Integer puntosSangre) {
+        super(nombre, armas, armaActiva, armaduras, armaduraActiva, salud, debilidades, fortalezas, oro, poder, esbirros);
         this.edad = edad;
         this.puntosSangre = puntosSangre;
     }

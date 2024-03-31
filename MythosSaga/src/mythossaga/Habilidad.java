@@ -1,6 +1,8 @@
 package mythossaga;
 
-public abstract class Habilidad {
+import java.io.Serializable;
+
+public abstract class Habilidad implements Serializable {
 
     private String nombre;
     private Integer ataque;

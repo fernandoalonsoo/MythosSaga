@@ -1,6 +1,8 @@
 package mythossaga;
 
-public abstract class Esbirro {
+import java.io.Serializable;
+
+public abstract class Esbirro implements Serializable {
     private TypeEsbirro nombre;
     private int salud;
 

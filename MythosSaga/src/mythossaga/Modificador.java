@@ -1,6 +1,8 @@
 package mythossaga;
 
-public abstract class Modificador {
+import java.io.Serializable;
+
+public abstract class Modificador implements Serializable {
     protected String nombre;
     protected int valor;
 
