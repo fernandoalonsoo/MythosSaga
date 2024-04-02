@@ -15,4 +15,11 @@ public class Cazador extends Personaje implements Serializable {
         super(nombre, salud, poder);
         this.voluntad = voluntad;
     }
+
+    public int getValorAtaqueTalento(){
+        return getPoder();
+    }
+    public int getVoluntadActual(){
+        return voluntad;
+    }
 }

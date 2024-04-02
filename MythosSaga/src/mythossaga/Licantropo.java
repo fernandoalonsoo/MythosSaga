@@ -5,7 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Licantropo extends Personaje implements Serializable {
-
+    private static final int rabia_minima_para_don = 5;
+    private static final int valor_ataque_don= 3;
     private Integer rabia;
 
     public Licantropo(String nombre) {
@@ -33,5 +34,14 @@ public class Licantropo extends Personaje implements Serializable {
 
     public void setRabia(Integer rabia) {
         this.rabia = rabia;
+    }
+
+    public int getValorAtaqueDon() {
+        // Si la rabia actual del licántropo es menor que el valor mínimo requerido para activar el don, el valor de ataque del don es cero
+        if (rabia < rabia_minima_para_don) {
+            return 0;
+        } else {
+            return valor_ataque_don;
+        }
     }
 }

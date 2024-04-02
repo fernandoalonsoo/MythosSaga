@@ -18,4 +18,6 @@ public abstract class Equipo implements Serializable {
     public int getModificador() {
         return modificador;
     }
+
+    public abstract int getValorAtaque();
 }
