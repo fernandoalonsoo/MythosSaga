@@ -140,7 +140,7 @@ class Sistema {
 
     private void gestionarDesafios(Database data) {
         HashMap<String, User> usuarios = data.getUsuarios();
-        System.out.println("DESAFIO\nIntroduzca el nick de a quien quiere desafiar");
+        System.out.println("DESAFIO\nIntroduzca el nombre del usuario a desafiar");
         String desafiado = scanner.next();
         if (usuarios.containsKey(desafiado)){
             while(true) {

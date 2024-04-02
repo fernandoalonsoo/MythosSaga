@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class Arma extends Equipo implements Serializable {
     private int manos;
+    private int valorAtaque;
 
     public Arma(String nombre, int modificador, int manos) {
         super(nombre, modificador);
@@ -17,5 +18,9 @@ public class Arma extends Equipo implements Serializable {
     @Override
     public String toString() {
         return "Nombre: " + this.nombre + ", Modificador de ataque: " + this.modificador + ", Manos ocupadas: " + this.manos;
+    }
+
+    public int getValorAtaque (){
+        return getModificador();
     }
 }
