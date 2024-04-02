@@ -7,6 +7,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class UsuarioJugador extends User implements Serializable {
     private static final AtomicInteger contadorRegistros = new AtomicInteger(0);
     private Personaje personaje;
+    private boolean bloqueado;
     private String numeroRegistro;
     private transient Scanner scan;
 
@@ -15,6 +16,7 @@ public class UsuarioJugador extends User implements Serializable {
         super(nombre, nick, password);
         String numeroRegistro = generarNumeroRegistro();
         this.numeroRegistro = numeroRegistro;
+        this.bloqueado = false;
     }
 
     private String generarNumeroRegistro() {
@@ -76,9 +78,6 @@ public class UsuarioJugador extends User implements Serializable {
 
         System.out.println("Ingrese el nombre del personaje:");
         String nombre = scan.next();
-
-
-
         System.out.println("Elija una opcion:");
         System.out.println("1.- Seleccionar vampiro");
         System.out.println("2.- Seleccionar licantropo");
@@ -98,15 +97,15 @@ public class UsuarioJugador extends User implements Serializable {
 
         switch (opcion){
             case 1: input.nextLine();
-                this.personaje = new Vampiro("Vampiro");
+                this.personaje = new Vampiro(nombre);
                 break;
 
             case 2: input.nextLine();
-                this.personaje = new Licantropo("Licantropo");
+                this.personaje = new Licantropo(nombre);
                 break;
 
             case 3: input.nextLine();
-                this.personaje = new Cazador("Cazador");
+                this.personaje = new Cazador(nombre);
                 break;
 
             case 4: break;
@@ -236,17 +235,28 @@ public class UsuarioJugador extends User implements Serializable {
         }
     }
     private void mostrarEquipo(ArrayList<Equipo> equipo, Personaje personaje) {
-        Collection<Equipo> armas = personaje.getArmas().values();
-        Collection<Equipo> armaduras = personaje.getArmaduras().values();
+        HashMap<String, Equipo> armas = personaje.getArmas();
+        HashMap<String, Equipo> armaduras = personaje.getArmaduras();
+        System.out.println(personaje.getNombre());
 
-        System.out.println("\nArmas:");
-        for (Equipo arma : armas) {
-            System.out.println(arma);
+        if(armas.isEmpty()){
+            System.out.println("No tienes armas");
+        } else {
+            System.out.println("\nArmas:");
+            Collection<Equipo> listArmas = armas.values();
+            for (Equipo arma : listArmas) {
+                System.out.println(arma);
+            }
         }
 
-        System.out.println("\nArmaduras:");
-        for (Equipo armadura : armaduras) {
-            System.out.println("Nombre: " + armadura.getNombre() + ", Modificador de defensa: " + armadura.getModificador());
+        if(armaduras.isEmpty()){
+            System.out.println("No tienes armaduras");
+        } else {
+            System.out.println("\nArmas:");
+            Collection<Equipo> listArmaduras = armaduras.values();
+            for (Equipo armadura : listArmaduras) {
+                System.out.println(armadura);
+            }
         }
     }
 
@@ -274,5 +284,13 @@ public class UsuarioJugador extends User implements Serializable {
         double newOro = personaje.getOro();
         newOro = newOro + oro;
         personaje.setOro(newOro);
+    }
+
+    public boolean isBloqueado() {
+        return bloqueado;
+    }
+
+    public void setBloqueado(boolean bloqueado) {
+        this.bloqueado = bloqueado;
     }
 }
