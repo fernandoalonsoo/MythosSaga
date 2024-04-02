@@ -58,7 +58,7 @@ public class Combate {
 
         switch (personaje) {
             case Vampiro vampiro -> {
-                potencialAtaque += vampiro.getPoder();// Sumar el poder
+
                 potencialAtaque += vampiro.getValorAtaqueDisciplina(); // Sumar el valor de ataque de la disciplina
 
                 potencialAtaque += vampiro.getValorAtaqueEquipoActivo(); // Sumar el valor de ataque del equipo activo
