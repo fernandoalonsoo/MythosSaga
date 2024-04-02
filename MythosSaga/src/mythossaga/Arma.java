@@ -23,4 +23,6 @@ public class Arma extends Equipo implements Serializable {
     public int getValorAtaque (){
         return getModificador();
     }
+
+    public int getValorDefensa() {return 0; }
 }

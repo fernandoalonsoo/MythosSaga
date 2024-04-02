@@ -44,4 +44,11 @@ public class Licantropo extends Personaje implements Serializable {
             return valor_ataque_don;
         }
     }
+    public int getValorDefensaDon(){
+        if (rabia < rabia_minima_para_don) {
+            return 0;
+        } else {
+            return valor_ataque_don;
+        }
+    }
 }

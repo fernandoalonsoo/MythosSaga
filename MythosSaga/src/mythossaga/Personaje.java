@@ -170,6 +170,11 @@ public abstract class Personaje implements Serializable {
         }
         return valorAtaque;
     }
+    public int getValorDefensaEquipoActivo(){
+        int valorDefensa = 0;
+        valorDefensa += armaduraActiva.getValorDefensa();
+        return valorDefensa;
+    }
 
 
 //falta habilidad especial

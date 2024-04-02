@@ -48,8 +48,11 @@ public class Vampiro extends Personaje implements Serializable {
         this.puntosSangre = puntosSangre;
     }
 
-    public Integer getValorAtaqueDisciplina() {
-        return 2 * edad;
+    public int getValorAtaqueDisciplina() {
+        return 2 * edad;// no dice nada, lo supongo
+    }
+    public int getValorDefensaDisciplina(){
+        return 2 * edad; // no dice nada, lo supongo
     }
 
 

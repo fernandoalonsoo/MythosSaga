@@ -10,6 +10,7 @@ public class Armadura extends Equipo implements Serializable {
     public int getValorAtaque() {
         return 0;
     }
+    public int getValorDefensa() {return getModificador(); }
 
     @Override
     public String toString() {

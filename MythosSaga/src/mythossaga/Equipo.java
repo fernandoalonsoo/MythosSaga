@@ -20,4 +20,5 @@ public abstract class Equipo implements Serializable {
     }
 
     public abstract int getValorAtaque();
+    public abstract int getValorDefensa();
 }

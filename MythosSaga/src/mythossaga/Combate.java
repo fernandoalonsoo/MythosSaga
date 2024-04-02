@@ -75,8 +75,6 @@ public class Combate {
                 potencialAtaque += licantropo.getRabia(); // Sumar la rabia actual  // Si el personaje es un licántropo
             }
             case Cazador cazador -> {
-                potencialAtaque += cazador.getValorAtaqueTalento(); // Sumar el valor de ataque del talento
-
                 potencialAtaque += cazador.getValorAtaqueEquipoActivo(); // Sumar el valor de ataque del equipo activo
 
                 potencialAtaque += cazador.getVoluntadActual(); // Sumar la voluntad actual  // Si el personaje es un cazador
@@ -88,11 +86,6 @@ public class Combate {
         return potencialAtaque;
     }
 
-
-    private int calcularPotencialDefensa(Personaje personaje) {
-
-        return 0;
-    }
 
     private int calcularExitos(int potencial) {
 
@@ -117,6 +110,32 @@ public class Combate {
             System.out.println("El combate ha terminado. El vencedor es " + this.vencedor.getNombre() + ".");
         }
 
+    }
+
+    private int calcularPotencialDefensa(Personaje personaje) {
+        int potencialDefensa = personaje.getPoder(); // Inicialmente, el potencial de defensa es el poder del personaje
+
+        switch (personaje) {
+            case Vampiro vampiro -> {
+                potencialDefensa += vampiro.getValorDefensaDisciplina(); // Sumar el valor de defensa de la disciplina
+
+                potencialDefensa += vampiro.getValorDefensaEquipoActivo(); // Sumar el valor de defensa del equipo activo  // Si el personaje es un vampiro
+            }
+            case Licantropo licantropo -> {
+                potencialDefensa += licantropo.getValorDefensaDon(); // Sumar el valor de defensa del don
+
+                potencialDefensa += licantropo.getValorDefensaEquipoActivo(); // Sumar el valor de defensa del equipo activo  // Si el personaje es un licántropo
+            }
+            case Cazador cazador -> {
+                potencialDefensa+= cazador.getVoluntadActual(); // Sumar la voluntad actual  // Si el personaje es un cazador
+
+
+                potencialDefensa += cazador.getValorDefensaEquipoActivo(); // Sumar el valor de defensa del equipo activo  // Si el personaje es un cazador
+            }
+            default -> {
+            }
+        }
+        return potencialDefensa;
     }
 
 
