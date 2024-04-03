@@ -34,6 +34,9 @@ public abstract class Personaje implements Serializable {
         this.armaActiva = new Equipo[2];
         this.armaduras = new HashMap<>();
         this.armas = new HashMap<>();
+        this.debilidades = new ArrayList<>();
+        this.fortalezas = new ArrayList<>();
+        this.esbirros = new ArrayList<>();
     }
 
     public Personaje(String nombre, HashMap<String, Equipo> armas, Equipo[] armaActiva, HashMap<String, Equipo> armaduras, Equipo armaduraActiva, int salud,
@@ -181,8 +184,26 @@ public abstract class Personaje implements Serializable {
         return valorDefensa;
     }
 
+    public void addDebilidad(Debilidad newDebilidad) {
+        if (this.debilidades == null){
+            this.debilidades = new ArrayList<>();
+        }
+        this.debilidades.add(newDebilidad);
+    }
 
 
-//falta habilidad especial
+    public void addFortaleza(Fortaleza newFortaleza) {
+        if (this.fortalezas == null){
+            this.fortalezas = new ArrayList<>();
+        }
+        this.fortalezas.add(newFortaleza);
+    }
+
+    public void addEsbirro(Esbirro esbirro) {
+        if (this.esbirros == null){
+            this.esbirros = new ArrayList<>();
+        }
+        this.esbirros.add(esbirro);
+    }
 
 }

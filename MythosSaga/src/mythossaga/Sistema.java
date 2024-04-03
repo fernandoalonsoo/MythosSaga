@@ -176,14 +176,80 @@ class Sistema {
 
                 switch (opcion) {
                     case 1:
+                        System.out.println("Introduzca el nombre del arma");
+                        String nombreArma = scanner.next();
+                        System.out.println("Introduzca el modificador de ataque del arma");
+                        int modificadorAtaque = scanner.nextInt();
+                        System.out.println("Introduzca las manos del arma");
+                        int manos = scanner.nextInt();
+                        Arma newArma = new Arma(nombreArma, modificadorAtaque, manos);
+                        ((UsuarioJugador) user).getPersonaje().addArmas(newArma);
+                        System.out.println("Arma añadida correctamente");
                         break;
                     case 2:
+                        System.out.println("Introduzca el nombre de la armadura");
+                        String nombreArmadura = scanner.next();
+                        System.out.println("Introduzca el modificador de defensa de la armadura");
+                        int modifcadorDefensa = scanner.nextInt();
+                        Armadura newArmadura = new Armadura(nombreArmadura, modifcadorDefensa);
+                        ((UsuarioJugador) user).getPersonaje().addArmadura(newArmadura);
+                        System.out.println("Armadura añadida correctamente");
                         break;
                     case 3:
+                        System.out.println("Introduzca el nombre de la debilidad");
+                        String nombreDebilidad = scanner.next();
+                        System.out.println("Introduzca el valor de la debilidad");
+                        int valorDebilidad = scanner.nextInt();
+                        Debilidad newDebilidad = new Debilidad(nombreDebilidad, valorDebilidad);
+                        ((UsuarioJugador) user).getPersonaje().addDebilidad(newDebilidad);
+                        System.out.println("Debilidad añadida correctamente");
                         break;
                     case 4:
+                        System.out.println("Introduzca el nombre de la fortaleza");
+                        String nombreFortaleza = scanner.next();
+                        System.out.println("Introduzca el valor de la fortaleza");
+                        int valorFortaleza = scanner.nextInt();
+                        Fortaleza newFortaleza = new Fortaleza(nombreFortaleza, valorFortaleza);
+                        ((UsuarioJugador) user).getPersonaje().addFortaleza(newFortaleza);
+                        System.out.println("Fortaleza añadida correctamente");
                         break;
                     case 5:
+                        System.out.println("Escoja el tipo de esbirro");
+                        System.out.println("1.Humano\n2.Ghouls\n3.Demonios");
+                        int typeEsbirro = scanner.nextInt();
+                        System.out.println("Introduzca la salud del esbirro");
+                        int saludEsbirro = scanner.nextInt();
+                        switch (typeEsbirro){
+                            case 1:
+                                if(((UsuarioJugador) user).getPersonaje() instanceof Vampiro){
+                                    System.out.println("Un vampiro no puede crear esbirros humanos");
+                                } else{
+                                System.out.println("Escoja la lealtad del humano");
+                                System.out.println("1.Alta\n2.normal\n3.Baja");
+                                int lealtad = scanner.nextInt();
+                                switch (lealtad) {
+                                    case 1:
+                                        ((UsuarioJugador) user).getPersonaje().addEsbirro(new Humano(TypeEsbirro.humano, saludEsbirro, Lealtad.ALTO));
+                                        break;
+                                    case 2:
+                                        ((UsuarioJugador) user).getPersonaje().addEsbirro(new Humano(TypeEsbirro.humano, saludEsbirro, Lealtad.NORMAL));
+                                        break;
+                                    case 3:
+                                        ((UsuarioJugador) user).getPersonaje().addEsbirro(new Humano(TypeEsbirro.humano, saludEsbirro, Lealtad.BAJO));
+                                        break;
+                                }
+                                }
+                            case 2:
+                                System.out.println("Introduzca la dependencia del ghoul entre 1 y 5");
+                                int dependencia = scanner.nextInt();
+                                ((UsuarioJugador) user).getPersonaje().addEsbirro(new Ghoul(TypeEsbirro.ghoul, saludEsbirro, dependencia));
+                                break;
+                            case 3:
+                                System.out.println("Se necesita un pacto entre tu esbirro demonio y tu, escriba: ");
+                                String pacto = scanner.next();
+                                ((UsuarioJugador) user).getPersonaje().addEsbirro(new Demonio(TypeEsbirro.demonio, saludEsbirro, pacto));
+                                break;
+                        }
                         break;
                     case 0:
                         System.out.println("Saliendo del menú...");
