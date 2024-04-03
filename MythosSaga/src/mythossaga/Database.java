@@ -66,6 +66,8 @@ public class Database implements Serializable {
         Operador fer = new Operador("fer", "nano", "1234");
         this.usuarios.put(fer.getNick(), fer);
 
+        Operador admin = new Operador("admin", "admin", "admin");
+        this.usuarios.put(admin.getNick(), admin);
 
         /////////////////////////
         // El usuario de juan

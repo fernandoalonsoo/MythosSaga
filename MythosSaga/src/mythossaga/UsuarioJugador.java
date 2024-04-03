@@ -293,4 +293,8 @@ public class UsuarioJugador extends User implements Serializable {
     public void setBloqueado(boolean bloqueado) {
         this.bloqueado = bloqueado;
     }
+
+    public Personaje getPersonaje() {
+        return personaje;
+    }
 }

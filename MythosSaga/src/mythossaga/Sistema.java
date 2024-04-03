@@ -91,9 +91,11 @@ class Sistema {
             switch (opcion){
                 case 1:
                     System.out.println("Editando personaje");
+                    editarPersonaje(usuarios);
                     break;
                 case 2:
                     System.out.println("Añadiendo items");
+                    anadirItems(usuarios);
                     break;
                 case 3:
                     validarDesafios(desafios);
@@ -154,6 +156,105 @@ class Sistema {
         } while (opcion != 7);
     }
 
+    private void anadirItems(HashMap<String, User> usuarios) {
+        System.out.print("Introduzca el nick del usuario al que deseas modificar su personaje: ");
+        String nick = scanner.next();
+        if (usuarios.containsKey(nick)) {
+            User user = usuarios.get(nick);
+            if (user instanceof UsuarioJugador) {
+                System.out.println("Seleccione qué desea añadir al personaje:");
+                System.out.println("1. Armas");
+                System.out.println("2. Armaduras");
+                System.out.println("3. Fortalezas");
+                System.out.println("4. Debilidades");
+                System.out.println("5. Esbirros");
+                System.out.println("0. Salir");
+
+                int opcion = scanner.nextInt();
+
+                switch (opcion) {
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        break;
+                    case 4:
+                        break;
+                    case 5:
+                        break;
+                    case 0:
+                        System.out.println("Saliendo del menú...");
+                        break;
+                    default:
+                        System.out.println("Opción no válida. Por favor, seleccione una opción del menú.");
+                        break;
+                }
+            }
+        } else {
+            System.out.println("No se encuentra a ese usuario");
+        }
+    }
+
+    private void editarPersonaje(HashMap<String, User> usuarios) {
+        System.out.print("Introduzca el nick del usuario al que deseas modificar su personaje: ");
+        String nick = scanner.next();
+        if(usuarios.containsKey(nick)){
+            User user = usuarios.get(nick);
+            if(user instanceof UsuarioJugador){
+                Personaje personaje = ((UsuarioJugador) user).getPersonaje();
+                System.out.println("Introduce los campos que deseas modificar, sino pulse enter");
+                System.out.println("Oro actual " + personaje.getOro() + ", nuevo oro: ");
+                if (scanner.hasNextInt()) {
+                    int nuevoOro = scanner.nextInt();
+                    personaje.setOro(nuevoOro);
+                    System.out.println("Oro cambiado correctamente");
+                } else {
+                    scanner.next(); // Consumir la entrada incorrecta (no es un entero)
+                    System.out.println("No has introducido un número válido.");
+                }
+                System.out.println("Salud actual " + personaje.getSalud() + ", nueva salud: ");
+                if (scanner.hasNextInt()) {
+                    int nuevaSalud = scanner.nextInt();
+                    personaje.setSalud(nuevaSalud);
+                    System.out.println("Salud cambiada correctamente");
+                } else {
+                    scanner.next(); // Consumir la entrada incorrecta (no es un entero)
+                    System.out.println("No has introducido un número válido.");
+                }
+                System.out.println("Poder actual " + personaje.getPoder() + ", nuevo poder: ");
+                if (scanner.hasNextInt()) {
+                    int nuevoPoder = scanner.nextInt();
+                    personaje.setPoder(nuevoPoder);
+                    System.out.println("Poder cambiado correctamente");
+                } else {
+                    scanner.next(); // Consumir la entrada incorrecta (no es un entero)
+                    System.out.println("No has introducido un número válido.");
+                }
+                System.out.println("Armadura actual " + personaje.getArmaduraActiva() + ", nueva armadura: ");
+                String acarreo = scanner.nextLine();
+                String input = scanner.nextLine();
+                if (!input.isEmpty()) {
+                    try {
+                        if(personaje.getArmaduras().containsKey(input)){
+                            personaje.setArmaduraActiva(personaje.getArmaduras().get(input));
+                            System.out.println("Armadura cambiada correctamente");
+                        } else{
+                            System.out.println("El personaje no tiene esa armadura");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Entrada no válida. Por favor, introduce un número.");
+                    }
+                } else {
+                    System.out.println("No has introducido ningún valor. Se mantendrá la armadura actual.");
+                }
+                //Falta el arma
+            }
+        } else {
+            System.out.println("No se encuentra a ese usuario");
+        }
+    }
+
     private static void validarDesafios(ArrayList<Desafio> desafios) {
         boolean desafioValidable = false;
         for(Desafio d: desafios){
@@ -207,9 +308,9 @@ class Sistema {
                     userActivo.menuGestionarPersonajes(scanner);
                     break;
                 case 2:
+                    System.out.println("Gestionando desafíos...");
                     if (userActivo.comprobarPersonajes()){
                         gestionarDesafios(data);
-                        System.out.println("Gestionando desafíos...");
                     } else {
                         System.out.println("No hay personajes creados, no se puede desafiar");
                     }
@@ -247,6 +348,7 @@ class Sistema {
                 int oro_apostado = scanner.nextInt();
                 if (oro_apostado > 0 && usuarios.get(desafiado).oroSuficiente(oro_apostado)){
                     data.crearDesafio(userActivo.getNick(), desafiado, oro_apostado);
+                    System.out.println("Desafio creado");
                     break;
                 } else {
                     System.out.println("No puedes apostar esa cantidad de oro");
