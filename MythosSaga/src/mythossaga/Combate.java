@@ -25,32 +25,50 @@ public class Combate {
 
     }
 
-    public void jugarRonda() {
+    public void jugarRonda(Desafio desafio) {
         this.round++;
+
+        System.out.println("Ronda " + this.round + ":");
 
         int potencialAtaqueDesafiante = calcularPotencialAtaque(desafiante);
         int potencialAtaqueDesafiado = calcularPotencialAtaque(desafiado);
         int potencialDefensaDesafiante = calcularPotencialDefensa(desafiante);
         int potencialDefensaDesafiado = calcularPotencialDefensa(desafiado);
 
+        System.out.println("Potencial de ataque del desafiante: " + potencialAtaqueDesafiante);
+        System.out.println("Potencial de ataque del desafiado: " + potencialAtaqueDesafiado);
+        System.out.println("Potencial de defensa del desafiante: " + potencialDefensaDesafiante);
+        System.out.println("Potencial de defensa del desafiado: " + potencialDefensaDesafiado);
 
         int exitosAtaqueDesafiante = calcularExitos(potencialAtaqueDesafiante);
         int exitosAtaqueDesafiado = calcularExitos(potencialAtaqueDesafiado);
         int exitosDefensaDesafiante = calcularExitos(potencialDefensaDesafiante);
         int exitosDefensaDesafiado = calcularExitos(potencialDefensaDesafiado);
 
+        System.out.println("Éxitos de ataque del desafiante: " + exitosAtaqueDesafiante);
+        System.out.println("Éxitos de ataque del desafiado: " + exitosAtaqueDesafiado);
+        System.out.println("Éxitos de defensa del desafiante: " + exitosDefensaDesafiante);
+        System.out.println("Éxitos de defensa del desafiado: " + exitosDefensaDesafiado);
 
         int danoDesafiante = Math.max(0, exitosAtaqueDesafiante - exitosDefensaDesafiado);
         int danoDesafiado = Math.max(0, exitosAtaqueDesafiado - exitosDefensaDesafiante);
+
+        System.out.println("Daño causado por el desafiante: " + danoDesafiante);
+        System.out.println("Daño causado por el desafiado: " + danoDesafiado);
 
 
         this.saludDesafiante -= danoDesafiante;
         this.saludDesafiado -= danoDesafiado;
 
+        System.out.println("Salud del desafiante actualizada tras la ronda : " + this.saludDesafiante);
+        System.out.println("Salud del desafiado actualizada tras la ronda: " + this.saludDesafiado);
 
         if (this.saludDesafiante <= 0 || this.saludDesafiado <= 0) {
             terminarCombate();
+            desafio.setTerminado(true);
         }
+
+
     }
 
     private int calcularPotencialAtaque(Personaje personaje) {

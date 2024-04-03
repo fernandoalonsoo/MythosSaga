@@ -19,6 +19,7 @@ public class UsuarioJugador extends User implements Serializable {
         this.bloqueado = false;
     }
 
+
     private String generarNumeroRegistro() {
         int numero = contadorRegistros.incrementAndGet();
         int digitoUnidad = numero % 10; // Último dígito del número

@@ -6,12 +6,12 @@ package mythossaga;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.Date;
 
 class Sistema {
     public User userActivo;
 
     static transient Scanner scanner = new Scanner(System.in);
-
     public void menuInicio(Database database) throws IOException {
         int opcion = 0;
         while (opcion != 3) {
@@ -36,7 +36,7 @@ class Sistema {
         HashMap<String, User> usuarios = data.getUsuarios();
         System.out.println("Introduce tu nick de usuario: ");
         String nick = scanner.next();
-        if(!usuarios.containsKey(nick)) {
+        if (!usuarios.containsKey(nick)) {
             System.out.println("Introduce tu nickname de usuario: ");
             String usuario = scanner.next();
             System.out.println("Introduce tu contraseña: ");
@@ -59,8 +59,8 @@ class Sistema {
         if (usuarios.containsKey(nick) && usuarios.get(nick).getPassword().equals(contrasena)) { //puede que se pueda quitar la primera condicion del if
             System.out.println("Te has logeado correctamente en la aplicación");
             userActivo = usuarios.get(nick);
-            if (userActivo instanceof UsuarioJugador){
-                if(((UsuarioJugador) userActivo).isBloqueado()){
+            if (userActivo instanceof UsuarioJugador) {
+                if (((UsuarioJugador) userActivo).isBloqueado()) {
                     System.out.println("Se le ha bloqueado la entrada al sistema");
                 } else {
                     menuUsuario(data);
@@ -88,7 +88,7 @@ class Sistema {
             System.out.println("Introduzca 6 para darse de baja");
             System.out.println("Introduzca 7 para salir");
             opcion = scanner.nextInt();
-            switch (opcion){
+            switch (opcion) {
                 case 1:
                     System.out.println("Editando personaje");
                     editarPersonaje(usuarios);
@@ -103,9 +103,9 @@ class Sistema {
                 case 4:
                     System.out.println("Introduce el nick de un usuario que quieras bloquear");
                     String nombre = scanner.next();
-                    if(usuarios.containsKey(nombre)){
+                    if (usuarios.containsKey(nombre)) {
                         User user = usuarios.get(nombre);
-                        if(user instanceof UsuarioJugador){
+                        if (user instanceof UsuarioJugador) {
                             ((UsuarioJugador) user).setBloqueado(true);
                             System.out.println("Usuario bloqueado");
                         } else {
@@ -117,18 +117,18 @@ class Sistema {
                     break;
                 case 5:
                     System.out.println("Usuarios bloqueados");
-                    for(User u: usuarios.values()){
-                        if(u instanceof UsuarioJugador){
-                            if(((UsuarioJugador) u).isBloqueado()){
+                    for (User u : usuarios.values()) {
+                        if (u instanceof UsuarioJugador) {
+                            if (((UsuarioJugador) u).isBloqueado()) {
                                 System.out.println(u.getNombre());
                             }
                         }
                     }
                     System.out.println("Introduce el nick de un usuario que quieras desbloquear");
                     String n = scanner.next();
-                    if(usuarios.containsKey(n)){
+                    if (usuarios.containsKey(n)) {
                         User user = usuarios.get(n);
-                        if(user instanceof UsuarioJugador){
+                        if (user instanceof UsuarioJugador) {
                             ((UsuarioJugador) user).setBloqueado(false);
                             System.out.println("Usuario desbloqueado");
                         }
@@ -139,12 +139,14 @@ class Sistema {
                 case 6:
                     System.out.println("Introduzca 'SI' si desea confirmar que se da de baja");
                     String confirmacion = scanner.next();
-                    if(Objects.equals(confirmacion, "SI")){
+                    if (Objects.equals(confirmacion, "SI")) {
                         System.out.println("Dándose de baja...");
                         System.out.println(userActivo.getNombre() + " ya no existe");
                         usuarios.remove(userActivo.getNick());
                         opcion = 5;
-                    } else {System.out.println("No se ha dado de baja");}
+                    } else {
+                        System.out.println("No se ha dado de baja");
+                    }
                     break;
                 case 7:
                     System.out.println("Cerrando sesion...");
@@ -199,9 +201,9 @@ class Sistema {
     private void editarPersonaje(HashMap<String, User> usuarios) {
         System.out.print("Introduzca el nick del usuario al que deseas modificar su personaje: ");
         String nick = scanner.next();
-        if(usuarios.containsKey(nick)){
+        if (usuarios.containsKey(nick)) {
             User user = usuarios.get(nick);
-            if(user instanceof UsuarioJugador){
+            if (user instanceof UsuarioJugador) {
                 Personaje personaje = ((UsuarioJugador) user).getPersonaje();
                 System.out.println("Introduce los campos que deseas modificar, sino pulse enter");
                 System.out.println("Oro actual " + personaje.getOro() + ", nuevo oro: ");
@@ -236,10 +238,10 @@ class Sistema {
                 String input = scanner.nextLine();
                 if (!input.isEmpty()) {
                     try {
-                        if(personaje.getArmaduras().containsKey(input)){
+                        if (personaje.getArmaduras().containsKey(input)) {
                             personaje.setArmaduraActiva(personaje.getArmaduras().get(input));
                             System.out.println("Armadura cambiada correctamente");
-                        } else{
+                        } else {
                             System.out.println("El personaje no tiene esa armadura");
                         }
                     } catch (NumberFormatException e) {
@@ -257,34 +259,36 @@ class Sistema {
 
     private static void validarDesafios(ArrayList<Desafio> desafios) {
         boolean desafioValidable = false;
-        for(Desafio d: desafios){
-            if(!d.isComprobado()){
+        for (Desafio d : desafios) {
+            if (!d.isComprobado()) {
                 desafioValidable = true;
                 System.out.println("Desafiante: " + d.getDesafiante());
                 System.out.println("Desafiado: " + d.getDesafiado());
                 System.out.println("Oro apostado: " + d.getApuesta());
             }
             System.out.println("Si quieres validar introduce 'VALIDAR'");
-            if(scanner.next().equals("VALIDAR")){
+            if (scanner.next().equals("VALIDAR")) {
                 d.setComprobado(true);
                 System.out.println("Desafio validado");
             }
         }
-        if(!desafioValidable){System.out.println("No hay desafios por validar");}
+        if (!desafioValidable) {
+            System.out.println("No hay desafios por validar");
+        }
     }
 
     private void menuUsuario(Database data) {
         HashMap<String, User> usuarios = data.getUsuarios();
         ArrayList<Desafio> desafios = data.getDesafios();
         int opcion;
-        for(Desafio desafio: desafios){
-            if(desafio.isComprobado() && Objects.equals(desafio.getDesafiado(), userActivo.getNick())){
+        for (Desafio desafio : desafios) {
+            if (desafio.isComprobado() && Objects.equals(desafio.getDesafiado(), userActivo.getNick())&& !(desafio.isTerminado())) {
                 System.out.println("Tienes un desafio pendiente de " + desafio.getDesafiante());
                 System.out.println("Si desea aceptarlo escriba 1, escriba cualquier otra cosa si desea rechazarlo");
                 String accept = scanner.next();
-                if(Objects.equals(accept, "1")){
-                    //Se lleva acabo el combate
-                } else{
+                if (Objects.equals(accept, "1")) {
+                    iniciarCombate(desafio, usuarios);
+                } else {
                     desafio.setTerminado(true);
                     double oro = 0.1 * desafio.getApuesta();
                     UsuarioJugador desafiante = (UsuarioJugador) usuarios.get(desafio.getDesafiante());
@@ -302,14 +306,14 @@ class Sistema {
             System.out.println("Introduzca 4 para darse de baja");
             System.out.println("Introduzca 5 para cerrar sesión");
             opcion = scanner.nextInt();
-            switch (opcion){
+            switch (opcion) {
                 case 1:
                     System.out.println("Gestionando personaje...");
                     userActivo.menuGestionarPersonajes(scanner);
                     break;
                 case 2:
                     System.out.println("Gestionando desafíos...");
-                    if (userActivo.comprobarPersonajes()){
+                    if (userActivo.comprobarPersonajes()) {
                         gestionarDesafios(data);
                     } else {
                         System.out.println("No hay personajes creados, no se puede desafiar");
@@ -321,12 +325,14 @@ class Sistema {
                 case 4:
                     System.out.println("Introduzca 'SI' si desea confirmar que se da de baja");
                     String confirmacion = scanner.next();
-                    if(Objects.equals(confirmacion, "SI")){
+                    if (Objects.equals(confirmacion, "SI")) {
                         System.out.println("Dándose de baja...");
                         System.out.println(userActivo.getNombre() + " ya no existe");
                         usuarios.remove(userActivo.getNick());
                         opcion = 5;
-                    } else {System.out.println("No se ha dado de baja");}
+                    } else {
+                        System.out.println("No se ha dado de baja");
+                    }
                     break;
                 case 5:
                     System.out.println("Cerrando sesión...");
@@ -342,11 +348,11 @@ class Sistema {
         HashMap<String, User> usuarios = data.getUsuarios();
         System.out.println("DESAFIO\nIntroduzca el nombre del usuario a desafiar");
         String desafiado = scanner.next();
-        if (usuarios.containsKey(desafiado)){
-            while(true) {
+        if (usuarios.containsKey(desafiado)) {
+            while (true) {
                 System.out.println("Introduzca la cantidad de oro a apostar");
                 int oro_apostado = scanner.nextInt();
-                if (oro_apostado > 0 && usuarios.get(desafiado).oroSuficiente(oro_apostado)){
+                if (oro_apostado > 0 && usuarios.get(desafiado).oroSuficiente(oro_apostado)) {
                     data.crearDesafio(userActivo.getNick(), desafiado, oro_apostado);
                     System.out.println("Desafio creado");
                     break;
@@ -360,4 +366,41 @@ class Sistema {
 
     }
 
+    private void iniciarCombate(Desafio desafio, HashMap<String, User> usuarios) {
+
+        String nombreDesafiante = desafio.getDesafiante();
+        String nombreDesafiado = desafio.getDesafiado();
+
+        Random random = new Random();
+        System.out.println("Comienza el Combate");
+
+
+        User usuarioDesafiante = usuarios.get(nombreDesafiante);
+        User usuarioDesafiado = usuarios.get(nombreDesafiado);
+
+        if (usuarioDesafiante instanceof UsuarioJugador jugadorDesafiante && usuarioDesafiado instanceof UsuarioJugador jugadorDesafiado) {
+            Personaje personajeDesafiante = jugadorDesafiante.getPersonaje();
+            Personaje personajeDesafiado = jugadorDesafiado.getPersonaje();
+
+            Date fecha = new Date();
+            Combate combate = new Combate(personajeDesafiante, personajeDesafiado, personajeDesafiante.getSalud(), personajeDesafiado.getSalud(), fecha);
+            combate.jugarRonda(desafio);
+
+        } else {
+            System.out.println("Uno o ambos de los desafiados no son jugadores. Un operador no puede combatir.");
+            return;
+        }
+
+
+    }
 }
+
+
+
+
+
+
+
+
+
+

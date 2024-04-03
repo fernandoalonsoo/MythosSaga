@@ -163,18 +163,24 @@ public abstract class Personaje implements Serializable {
     }
     public int getValorAtaqueEquipoActivo() {
         int valorAtaque = 0;
-        for (Equipo arma : armaActiva) {
-            if (arma != null) {
-                valorAtaque += arma.getValorAtaque();
+        if (armaActiva != null) {
+            for (Equipo arma : armaActiva) {
+                if (arma != null) {
+                    valorAtaque += arma.getValorAtaque();
+                }
             }
         }
         return valorAtaque;
     }
-    public int getValorDefensaEquipoActivo(){
+
+    public int getValorDefensaEquipoActivo() {
         int valorDefensa = 0;
-        valorDefensa += armaduraActiva.getValorDefensa();
+        if (armaduraActiva != null) {
+            valorDefensa += armaduraActiva.getValorDefensa();
+        }
         return valorDefensa;
     }
+
 
 
 //falta habilidad especial
