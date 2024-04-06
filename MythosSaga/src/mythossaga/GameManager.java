@@ -27,7 +27,7 @@ class GameManager {
         } catch (IOException ex) {
             Logger.getLogger(GameManager.class.getName()).log(Level.SEVERE, null, ex);
         }finally{
-          data.saveData();
+            data.saveData();
         }
         
     }

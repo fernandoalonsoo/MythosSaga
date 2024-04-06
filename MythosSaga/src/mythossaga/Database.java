@@ -1,5 +1,6 @@
 package mythossaga;
 
+import java.awt.image.AreaAveragingScaleFilter;
 import java.io.*;
 import java.sql.Array;
 import java.util.ArrayList;
@@ -13,6 +14,9 @@ public class Database implements Serializable {
     private ArrayList<Desafio> desafios;
     private ArrayList<Arma> armas;
     private ArrayList<Armadura> armaduras;
+    private ArrayList<String> mensajesCazadores;
+    private ArrayList<String> mensajesLicantropos;
+    private ArrayList<String> mensajesVampiros;
 
     public HashMap<String, User> getUsuarios() {
         return usuarios;
@@ -61,6 +65,10 @@ public class Database implements Serializable {
         this.desafios =  new ArrayList<>();
         this.armas = new ArrayList<>();
         this.armaduras = new ArrayList<>();
+        this.mensajesCazadores = new ArrayList<>();
+        this.mensajesLicantropos = new ArrayList<>();
+        this.mensajesVampiros = new ArrayList<>();
+
 
         // El operador para gestionar los desafios
         Operador fer = new Operador("fer", "nano", "1234");
@@ -87,7 +95,7 @@ public class Database implements Serializable {
 
         int debilidadVampiro = 0;
         int  fortalezaVampiro = 0;
-        List<Esbirro> esbirrosVampiro = new ArrayList<>();
+        ArrayList<Esbirro> esbirrosVampiro = new ArrayList<>();
 
         // Creación del personaje Vampiro
         Personaje personajeVampiro = new Vampiro(
@@ -127,7 +135,7 @@ public class Database implements Serializable {
 
         int  debilidadesLicantropo = 0;
         int  fortalezasLicantropo = 0;
-        List<Esbirro> esbirrosLicantropo = new ArrayList<>();
+        ArrayList<Esbirro> esbirrosLicantropo = new ArrayList<>();
 
         // Creación del personaje Licantropo
         Integer rabiaInicial = 50; // Valor inicial de rabia para el Licantropo
@@ -167,7 +175,7 @@ public class Database implements Serializable {
 
         List<Modificador> debilidadesCazador = new ArrayList<>();
         List<Modificador> fortalezasCazador = new ArrayList<>();
-        List<Esbirro> esbirrosCazador = new ArrayList<>();
+        ArrayList<Esbirro> esbirrosCazador = new ArrayList<>();
 
         // Creación del personaje Cazador
         Integer voluntadInicial = 40; // Valor inicial de voluntad para el Cazador
@@ -235,6 +243,67 @@ public class Database implements Serializable {
         this.armaduras.add(armadura8);
         this.armaduras.add(armadura9);
         this.armaduras.add(armadura10);
+
+        // Inicializamos desafiios
+
+        Desafio desafio1 = new Desafio(juan, alex, 10);
+        Desafio desafio2 = new Desafio(juan, guille, 20);
+
+        desafio1.setComprobado(true);
+        desafio2.setComprobado(true);
+
+        desafios.add(desafio1);
+        desafios.add(desafio2);
+
+
+        // Mensajes para Cazadores
+        this.mensajesCazadores.add("¡Con cada flecha, un enemigo menos!");
+        this.mensajesCazadores.add("Por la luz, purgaré esta tierra.");
+        this.mensajesCazadores.add("La caza ha comenzado, y tú eres la presa.");
+        this.mensajesCazadores.add("Mis trampas están listas, el fin se acerca.");
+        this.mensajesCazadores.add("Un cazador siempre acecha en la sombra.");
+        this.mensajesCazadores.add("El filo de mi hoja será lo último que veas.");
+        this.mensajesCazadores.add("Ni la bestia más feroz puede escapar.");
+        this.mensajesCazadores.add("La voluntad del cazador es inquebrantable.");
+        this.mensajesCazadores.add("En el silencio, la muerte se aproxima.");
+        this.mensajesCazadores.add("Por cada caído, mi resolución se fortalece.");
+
+        // Mensajes para Licántropos
+        this.mensajesLicantropos.add("La luna llena me guía, tu fin está cerca.");
+        this.mensajesLicantropos.add("Deja que la bestia en mí despierte.");
+        this.mensajesLicantropos.add("Con garras y colmillos, reclamo mi victoria.");
+        this.mensajesLicantropos.add("El aullido del licántropo es el presagio de tu derrota.");
+        this.mensajesLicantropos.add("En la furia, encuentro mi fuerza.");
+        this.mensajesLicantropos.add("Ningún escondrijo te salvará de mi olfato.");
+        this.mensajesLicantropos.add("La manada es fuerte, y tú eres el débil.");
+        this.mensajesLicantropos.add("Mis heridas solo alimentan mi rabia.");
+        this.mensajesLicantropos.add("Cuando la bestia interior despierta, huye.");
+        this.mensajesLicantropos.add("La cacería nocturna ha comenzado.");
+
+        // Mensajes para Vampiros
+        this.mensajesVampiros.add("La eternidad es larga, pero tu vida es corta.");
+        this.mensajesVampiros.add("Siente el frío beso de la inmortalidad.");
+        this.mensajesVampiros.add("La noche es mi aliada, y tu sangre mi sustento.");
+        this.mensajesVampiros.add("Un susurro en la oscuridad, tu final se acerca.");
+        this.mensajesVampiros.add("De las sombras me alimento, y en ellas te consumirás.");
+        this.mensajesVampiros.add("La sed de sangre nunca se sacia.");
+        this.mensajesVampiros.add("Tus venas, el néctar que mi ser anhela.");
+        this.mensajesVampiros.add("Inmortalidad es poder, y tú eres solo un mortal.");
+        this.mensajesVampiros.add("Mi maldición es tu perdición.");
+        this.mensajesVampiros.add("La noche me pertenece, como tu vida ahora.");
+
+    }
+
+    public ArrayList<String> getMensajesCazadores() {
+        return mensajesCazadores;
+    }
+
+    public ArrayList<String> getMensajesLicantropos() {
+        return mensajesLicantropos;
+    }
+
+    public ArrayList<String> getMensajesVampiros() {
+        return mensajesVampiros;
     }
 }
 

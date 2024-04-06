@@ -356,7 +356,7 @@ class Sistema {
                 System.out.println("Si desea aceptarlo escriba 1, escriba cualquier otra cosa si desea rechazarlo");
                 String accept = scanner.next();
                 if (Objects.equals(accept, "1")) {
-                    iniciarCombate(desafio, usuarios);
+                    iniciarCombate(desafio, usuarios, data);
                 } else {
                     desafio.setTerminado(true);
                     double oro = 0.1 * desafio.getApuesta();
@@ -447,7 +447,7 @@ class Sistema {
 
     }
 
-    private void iniciarCombate(Desafio desafio, HashMap<String, User> usuarios) {
+    private void iniciarCombate(Desafio desafio, HashMap<String, User> usuarios, Database data) {
 
         String nombreDesafiante = desafio.getNombreDesafiante();
         String nombreDesafiado = desafio.getNombreDesafiado();
@@ -465,7 +465,7 @@ class Sistema {
 
             Date fecha = new Date();
             Combate combate = new Combate(personajeDesafiante, personajeDesafiado, personajeDesafiante.getSalud(), personajeDesafiado.getSalud(), fecha);
-            combate.jugarRonda(desafio);
+            combate.jugar(desafio, data);
 
         } else {
             System.out.println("Uno o ambos de los desafiados no son jugadores. Un operador no puede combatir.");

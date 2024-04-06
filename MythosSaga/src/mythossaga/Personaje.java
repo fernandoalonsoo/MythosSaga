@@ -18,7 +18,7 @@ public abstract class Personaje implements Serializable {
     private int fortaleza;
     private double oro;
     private int poder;
-    private List<Esbirro> esbirros;
+    private ArrayList<Esbirro> esbirros;
 
 
 
@@ -40,7 +40,7 @@ public abstract class Personaje implements Serializable {
     }
 
     public Personaje(String nombre, HashMap<String, Equipo> armas, Equipo[] armaActiva, HashMap<String, Equipo> armaduras, Equipo armaduraActiva, int salud,
-                     int debilidad,int fortaleza, double oro, int poder, List<Esbirro> esbirros) {
+                     int debilidad,int fortaleza, double oro, int poder, ArrayList<Esbirro> esbirros) {
         this.nombre = nombre;
         this.armas = armas;
         this.armaActiva = armaActiva;
@@ -142,11 +142,11 @@ public abstract class Personaje implements Serializable {
         this.poder = poder;
     }
 
-    public List<Esbirro> getEsbirros() {
+    public ArrayList<Esbirro> getEsbirros() {
         return esbirros;
     }
 
-    public void setEsbirros(List<Esbirro> esbirros) {
+    public void setEsbirros(ArrayList<Esbirro> esbirros) {
         this.esbirros = esbirros;
     }
 
