@@ -14,8 +14,8 @@ public abstract class Personaje implements Serializable {
     private HashMap<String, Equipo> armaduras;
     private Equipo armaduraActiva;
     private int salud;
-    private List<Modificador> debilidades;
-    private List<Modificador>  fortalezas;
+    private int debilidad;
+    private int fortaleza;
     private double oro;
     private int poder;
     private List<Esbirro> esbirros;
@@ -34,21 +34,21 @@ public abstract class Personaje implements Serializable {
         this.armaActiva = new Equipo[2];
         this.armaduras = new HashMap<>();
         this.armas = new HashMap<>();
-        this.debilidades = new ArrayList<>();
-        this.fortalezas = new ArrayList<>();
+        this.debilidad = 0;
+        this.fortaleza = 0;
         this.esbirros = new ArrayList<>();
     }
 
     public Personaje(String nombre, HashMap<String, Equipo> armas, Equipo[] armaActiva, HashMap<String, Equipo> armaduras, Equipo armaduraActiva, int salud,
-                     List<Modificador> debilidades, List<Modificador> fortalezas, double oro, int poder, List<Esbirro> esbirros) {
+                     int debilidad,int fortaleza, double oro, int poder, List<Esbirro> esbirros) {
         this.nombre = nombre;
         this.armas = armas;
         this.armaActiva = armaActiva;
         this.armaduras = armaduras;
         this.armaduraActiva = armaduraActiva;
         this.salud = salud;
-        this.debilidades = debilidades;
-        this.fortalezas = fortalezas;
+        this.debilidad = debilidad;
+        this.fortaleza = fortaleza;
         this.oro = oro;
         this.poder = poder;
         this.esbirros = esbirros;
@@ -110,20 +110,20 @@ public abstract class Personaje implements Serializable {
         this.salud = salud;
     }
 
-    public List<Modificador> getDebilidades() {
-        return debilidades;
+    public int getDebilidad() {
+        return debilidad;
     }
 
-    public void setDebilidades(List<Modificador> debilidades) {
-        this.debilidades = debilidades;
+    public void setDebilidad(int debilidad) {
+        this.debilidad = debilidad;
     }
 
-    public List<Modificador> getFortalezas() {
-        return fortalezas;
+    public int getFortaleza() {
+        return fortaleza;
     }
 
-    public void setFortalezas(List<Modificador> fortalezas) {
-        this.fortalezas = fortalezas;
+    public void setFortaleza(int fortaleza) {
+        this.fortaleza = fortaleza;
     }
 
     public double getOro() {
@@ -184,20 +184,6 @@ public abstract class Personaje implements Serializable {
         return valorDefensa;
     }
 
-    public void addDebilidad(Debilidad newDebilidad) {
-        if (this.debilidades == null){
-            this.debilidades = new ArrayList<>();
-        }
-        this.debilidades.add(newDebilidad);
-    }
-
-
-    public void addFortaleza(Fortaleza newFortaleza) {
-        if (this.fortalezas == null){
-            this.fortalezas = new ArrayList<>();
-        }
-        this.fortalezas.add(newFortaleza);
-    }
 
     public void addEsbirro(Esbirro esbirro) {
         if (this.esbirros == null){
@@ -205,5 +191,6 @@ public abstract class Personaje implements Serializable {
         }
         this.esbirros.add(esbirro);
     }
+
 
 }

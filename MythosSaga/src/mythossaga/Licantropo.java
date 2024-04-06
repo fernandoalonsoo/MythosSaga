@@ -23,8 +23,8 @@ public class Licantropo extends Personaje implements Serializable {
         this.rabia = rabia;
     }
 
-    public Licantropo(String nombre, HashMap<String, Equipo> armas, Equipo[] armaActiva, HashMap<String, Equipo> armaduras, Equipo armaduraActiva, int salud, List<Modificador> debilidades, List<Modificador> fortalezas, double oro, int poder, List<Esbirro> esbirros, Integer rabia) {
-        super(nombre, armas, armaActiva, armaduras, armaduraActiva, salud, debilidades, fortalezas, oro, poder, esbirros);
+    public Licantropo(String nombre, HashMap<String, Equipo> armas, Equipo[] armaActiva, HashMap<String, Equipo> armaduras, Equipo armaduraActiva, int salud, int debilidad,int fortaleza, double oro, int poder, List<Esbirro> esbirros, Integer rabia) {
+        super(nombre, armas, armaActiva, armaduras, armaduraActiva, salud, debilidad, fortaleza, oro, poder, esbirros);
         this.rabia = rabia;
     }
 

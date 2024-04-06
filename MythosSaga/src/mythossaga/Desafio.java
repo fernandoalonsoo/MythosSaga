@@ -3,13 +3,13 @@ package mythossaga;
 import java.io.Serializable;
 
 public class Desafio implements Serializable {
-    private String desafiante;
-    private String desafiado;
+    private UsuarioJugador desafiante;
+    private UsuarioJugador desafiado;
     private int apuesta;
     private boolean comprobado;
     private boolean terminado;
 
-    public Desafio(String desafiante, String desafiado, int apuesta) {
+    public Desafio(UsuarioJugador desafiante, UsuarioJugador desafiado, int apuesta) {
         this.desafiante = desafiante;
         this.desafiado = desafiado;
         this.apuesta = apuesta;
@@ -17,19 +17,23 @@ public class Desafio implements Serializable {
         this.terminado = false;
     }
 
-    public String getDesafiante() {
+    public UsuarioJugador getDesafiante() {
         return desafiante;
     }
 
-    public void setDesafiante(String desafiante) {
+    public String getNombreDesafiante(){return this.desafiante.getNombre();}
+
+    public void setDesafiante(UsuarioJugador desafiante) {
         this.desafiante = desafiante;
     }
 
-    public String getDesafiado() {
+    public UsuarioJugador getDesafiado() {
         return desafiado;
     }
 
-    public void setDesafiado(String desafiado) {
+    public String getNombreDesafiado(){return this.desafiado.getNombre();}
+
+    public void setDesafiado(UsuarioJugador desafiado) {
         this.desafiado = desafiado;
     }
 

@@ -261,7 +261,6 @@ public class UsuarioJugador extends User implements Serializable {
         }
     }
 
-
     private void agregarArmadura(Scanner scanner, ArrayList<Equipo> equipo, Personaje personaje) {
         System.out.println("Ingrese el nombre de la armadura:");
         String nombre = scanner.next();

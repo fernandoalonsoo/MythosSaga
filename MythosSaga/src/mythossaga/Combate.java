@@ -30,6 +30,10 @@ public class Combate {
 
         System.out.println("Ronda " + this.round + ":");
 
+
+        System.out.println("La salud del dseafiaente es: "+ desafio.getDesafiante().getNombre());
+        System.out.println("La salud del desafiado es: " + desafio.getDesafiado().getNombre());
+
         int potencialAtaqueDesafiante = calcularPotencialAtaque(desafiante);
         int potencialAtaqueDesafiado = calcularPotencialAtaque(desafiado);
         int potencialDefensaDesafiante = calcularPotencialDefensa(desafiante);
@@ -73,6 +77,9 @@ public class Combate {
 
     private int calcularPotencialAtaque(Personaje personaje) {
         int potencialAtaque = personaje.getPoder(); // Primero el potencial de ataque es el poder del personaje (común)
+            potencialAtaque += personaje.getFortaleza();
+            potencialAtaque -= personaje.getDebilidad();
+
 
         switch (personaje) {
             case Vampiro vampiro -> {
@@ -84,8 +91,10 @@ public class Combate {
                 if (vampiro.getPuntosSangre() >= 5) { // Si el valor de sangre es mayor o igual a 5
                     potencialAtaque += 2; // Sumar 2 al potencial de ataque
                 }
+
             }
             case Licantropo licantropo -> {
+
                 potencialAtaque += licantropo.getValorAtaqueDon(); // Sumar el valor de ataque del don (condición implementada en el metodo)
 
                 potencialAtaque += licantropo.getValorAtaqueEquipoActivo(); // Sumar el valor de ataque del equipo activo
@@ -105,7 +114,7 @@ public class Combate {
     }
 
 
-    private int calcularExitos(int potencial) {
+    private int  calcularExitos(int potencial) {
 
         int exitos = 0;
         Random random = new Random();
@@ -116,6 +125,7 @@ public class Combate {
         }
         return exitos;
     }
+
 
     private void terminarCombate() {
         if (this.saludDesafiante <= 0 && this.saludDesafiado <= 0) {
@@ -131,7 +141,7 @@ public class Combate {
     }
 
     private int calcularPotencialDefensa(Personaje personaje) {
-        int potencialDefensa = personaje.getPoder(); // Inicialmente, el potencial de defensa es el poder del personaje
+        int potencialDefensa= 0 ;
 
         switch (personaje) {
             case Vampiro vampiro -> {

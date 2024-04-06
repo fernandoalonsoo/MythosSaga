@@ -51,8 +51,8 @@ public class Database implements Serializable {
         return false;
     }
 
-    public void crearDesafio(String nick, String desafiado, int oroApostado) {
-        Desafio desafio = new Desafio(nick, desafiado, oroApostado);
+    public void crearDesafio(UsuarioJugador desafiante, UsuarioJugador desafiado, int oroApostado) {
+        Desafio desafio = new Desafio(desafiante, desafiado, oroApostado);
         desafios.add(desafio);
     }
 
@@ -85,8 +85,8 @@ public class Database implements Serializable {
         Armadura armaduraVampiro = new Armadura("Coraza de la Noche", 3);
         armadurasVampiro.put(armaduraVampiro.getNombre(), armaduraVampiro);
 
-        List<Modificador> debilidadesVampiro = new ArrayList<>();
-        List<Modificador> fortalezasVampiro = new ArrayList<>();
+        int debilidadVampiro = 0;
+        int  fortalezaVampiro = 0;
         List<Esbirro> esbirrosVampiro = new ArrayList<>();
 
         // Creación del personaje Vampiro
@@ -97,8 +97,8 @@ public class Database implements Serializable {
                 armadurasVampiro, // HashMap de armaduras
                 armaduraVampiro, // Armadura activa
                 12, // salud
-                debilidadesVampiro, // Lista de debilidades
-                fortalezasVampiro, // Lista de fortalezas
+                debilidadVampiro, // Lista de debilidades
+                fortalezaVampiro, // Lista de fortalezas
                 100, // oro
                 25, // poder
                 esbirrosVampiro, // Lista de esbirros
@@ -125,8 +125,8 @@ public class Database implements Serializable {
         Armadura armaduraLicantropo = new Armadura("Cota de Mallas", 4);
         armadurasLicantropo.put(armaduraLicantropo.getNombre(), armaduraLicantropo);
 
-        List<Modificador> debilidadesLicantropo = new ArrayList<>();
-        List<Modificador> fortalezasLicantropo = new ArrayList<>();
+        int  debilidadesLicantropo = 0;
+        int  fortalezasLicantropo = 0;
         List<Esbirro> esbirrosLicantropo = new ArrayList<>();
 
         // Creación del personaje Licantropo

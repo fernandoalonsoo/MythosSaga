@@ -4,6 +4,8 @@
  */
 package mythossaga;
 
+import com.sun.security.auth.UnixNumericUserPrincipal;
+
 import java.io.IOException;
 import java.util.*;
 import java.util.Date;
@@ -167,8 +169,8 @@ class Sistema {
                 System.out.println("Seleccione qué desea añadir al personaje:");
                 System.out.println("1. Armas");
                 System.out.println("2. Armaduras");
-                System.out.println("3. Fortalezas");
-                System.out.println("4. Debilidades");
+                System.out.println("3. Fortaleza");
+                System.out.println("4. Debilidad");
                 System.out.println("5. Esbirros");
                 System.out.println("0. Salir");
 
@@ -201,7 +203,7 @@ class Sistema {
                         System.out.println("Introduzca el valor de la debilidad");
                         int valorDebilidad = scanner.nextInt();
                         Debilidad newDebilidad = new Debilidad(nombreDebilidad, valorDebilidad);
-                        ((UsuarioJugador) user).getPersonaje().addDebilidad(newDebilidad);
+                        ((UsuarioJugador) user).getPersonaje().setDebilidad(valorDebilidad);
                         System.out.println("Debilidad añadida correctamente");
                         break;
                     case 4:
@@ -210,7 +212,7 @@ class Sistema {
                         System.out.println("Introduzca el valor de la fortaleza");
                         int valorFortaleza = scanner.nextInt();
                         Fortaleza newFortaleza = new Fortaleza(nombreFortaleza, valorFortaleza);
-                        ((UsuarioJugador) user).getPersonaje().addFortaleza(newFortaleza);
+                        ((UsuarioJugador) user).getPersonaje().setFortaleza(valorFortaleza);
                         System.out.println("Fortaleza añadida correctamente");
                         break;
                     case 5:
@@ -328,8 +330,8 @@ class Sistema {
         for (Desafio d : desafios) {
             if (!d.isComprobado()) {
                 desafioValidable = true;
-                System.out.println("Desafiante: " + d.getDesafiante());
-                System.out.println("Desafiado: " + d.getDesafiado());
+                System.out.println("Desafiante: " + d.getDesafiante().getNombre());
+                System.out.println("Desafiado: " + d.getDesafiado().getNombre());
                 System.out.println("Oro apostado: " + d.getApuesta());
             }
             System.out.println("Si quieres validar introduce 'VALIDAR'");
@@ -347,9 +349,10 @@ class Sistema {
         HashMap<String, User> usuarios = data.getUsuarios();
         ArrayList<Desafio> desafios = data.getDesafios();
         int opcion;
+        UsuarioJugador userDesafiado = (UsuarioJugador) userActivo;
         for (Desafio desafio : desafios) {
-            if (desafio.isComprobado() && Objects.equals(desafio.getDesafiado(), userActivo.getNick())&& !(desafio.isTerminado())) {
-                System.out.println("Tienes un desafio pendiente de " + desafio.getDesafiante());
+            if (desafio.isComprobado() && Objects.equals(desafio.getDesafiado().getNombre(),userDesafiado.getNombre())&& !(desafio.isTerminado())) {
+                System.out.println("Tienes un desafio pendiente de " + desafio.getDesafiante().getNombre());
                 System.out.println("Si desea aceptarlo escriba 1, escriba cualquier otra cosa si desea rechazarlo");
                 String accept = scanner.next();
                 if (Objects.equals(accept, "1")) {
@@ -414,12 +417,24 @@ class Sistema {
         HashMap<String, User> usuarios = data.getUsuarios();
         System.out.println("DESAFIO\nIntroduzca el nombre del usuario a desafiar");
         String desafiado = scanner.next();
+        UsuarioJugador usuarioDesafiado = null;
+        for (User usuario : usuarios.values()) {
+            if (usuario instanceof UsuarioJugador jugador) {
+                if (jugador.getNombre().equalsIgnoreCase(desafiado)) {
+                    usuarioDesafiado = jugador;
+                    break;
+                }
+            }
+        }
+
         if (usuarios.containsKey(desafiado)) {
             while (true) {
                 System.out.println("Introduzca la cantidad de oro a apostar");
                 int oro_apostado = scanner.nextInt();
                 if (oro_apostado > 0 && usuarios.get(desafiado).oroSuficiente(oro_apostado)) {
-                    data.crearDesafio(userActivo.getNick(), desafiado, oro_apostado);
+                    UsuarioJugador Desafiante = (UsuarioJugador)userActivo;
+                    UsuarioJugador personajeDesafiante = Desafiante;
+                    data.crearDesafio(personajeDesafiante,usuarioDesafiado, oro_apostado);
                     System.out.println("Desafio creado");
                     break;
                 } else {
@@ -434,8 +449,8 @@ class Sistema {
 
     private void iniciarCombate(Desafio desafio, HashMap<String, User> usuarios) {
 
-        String nombreDesafiante = desafio.getDesafiante();
-        String nombreDesafiado = desafio.getDesafiado();
+        String nombreDesafiante = desafio.getNombreDesafiante();
+        String nombreDesafiado = desafio.getNombreDesafiado();
 
         Random random = new Random();
         System.out.println("Comienza el Combate");
