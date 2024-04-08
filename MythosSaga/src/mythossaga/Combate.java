@@ -47,7 +47,7 @@ public class Combate {
                 reader.readLine();
                 jugarRonda(desafio, data);
             }
-            Personaje vencedor = terminarCombate();
+            Personaje vencedor = terminarCombate(desafio);
             desafio.setTerminado(true);
         } catch (IOException e) {
             System.out.println("Error");;
@@ -170,14 +170,18 @@ public class Combate {
     }
 
 
-    private Personaje terminarCombate() {
+    private Personaje terminarCombate(Desafio desafio) {
         if (this.saludDesafiante <= 0 && this.saludDesafiado <= 0) {
             System.out.println("El combate ha terminado en empate.");
         } else if (this.saludDesafiante <= 0) {
             this.vencedor = this.desafiado;
+            desafiado.setOro(desafiado.getOro()+desafio.getApuesta());
+            desafiante.setOro(desafiante.getOro()-desafio.getApuesta());
             System.out.println("El combate ha terminado. El vencedor es " + this.vencedor.getNombre() + ".");
         } else {
             this.vencedor = this.desafiante;
+            desafiante.setOro(desafiante.getOro()+desafio.getApuesta());
+            desafiado.setOro(desafiado.getOro()-desafio.getApuesta());
             System.out.println("El combate ha terminado. El vencedor es " + this.vencedor.getNombre() + ".");
         }
         return this.vencedor;
