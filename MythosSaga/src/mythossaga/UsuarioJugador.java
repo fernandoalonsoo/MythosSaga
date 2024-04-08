@@ -198,49 +198,55 @@ public class UsuarioJugador extends User implements Serializable {
 
     private void cambiarArmaActiva(Scanner scanner, ArrayList<Equipo> equipo) {
         HashMap<String, Equipo> armas = personaje.getArmas();
-        System.out.println("Estas son las armas de las que dispones");
-        for (Equipo arma : armas.values()) {
-            System.out.println(arma);
-        }
-
-
-        boolean added = false;
-        System.out.println("Escoja la nueva arma de la que disponer");
-        while (!added) {
-            String armaNombre = scan.next();
-            if (armas.containsKey(armaNombre)){
-                Equipo arma = armas.get(armaNombre);
-                Arma armaInstancia = (Arma) arma;
-                System.out.println("Ya esta añadida");
-                added = true;
-                if (armaInstancia.getManos() == 2) {
-                    personaje.setArmaActiva(arma);
-                } else {
-                    System.out.println("Puede añadir una mas que sea unicamente de una mano");
-                    String armaNombre2 = scan.next();
-                    if (armas.containsKey(armaNombre)){
-                        Equipo arma2 = armas.get(armaNombre);
-                        Arma armaInstancia2 = (Arma) arma;
-                        if (armaInstancia2.getManos() == 1){
-                           System.out.println("Añadidas ambas armas");
-                        } else {
-                            System.out.println("No se puede añadir ese arma ya que es de mas de 1 mano");
-                        }
+        if (armas == null || armas.isEmpty()){
+            System.out.println("No dispones de armas");
+        } else {
+            System.out.println("Estas son las armas de las que dispones");
+            for (Equipo arma : armas.values()) {
+                System.out.println(arma);
+            }
+            boolean added = false;
+            System.out.println("Escoja la nueva arma de la que disponer");
+            while (!added) {
+                String armaNombre = scan.next();
+                if (armas.containsKey(armaNombre)){
+                    Equipo arma = armas.get(armaNombre);
+                    Arma armaInstancia = (Arma) arma;
+                    System.out.println("Ya esta añadida");
+                    added = true;
+                    if (armaInstancia.getManos() == 2) {
+                        personaje.setArmaActiva(arma);
                     } else {
-                        System.out.println("No existe ese arma, te quedas con solo una en una mano");
+                        System.out.println("Puede añadir una mas que sea unicamente de una mano");
+                        String armaNombre2 = scan.next();
+                        if (armas.containsKey(armaNombre)){
+                            Equipo arma2 = armas.get(armaNombre);
+                            Arma armaInstancia2 = (Arma) arma;
+                            if (armaInstancia2.getManos() == 1){
+                                System.out.println("Añadidas ambas armas");
+                            } else {
+                                System.out.println("No se puede añadir ese arma ya que es de mas de 1 mano");
+                            }
+                        } else {
+                            System.out.println("No existe ese arma, te quedas con solo una en una mano");
+                        }
                     }
+                } else {
+                    System.out.println("Escriba el nombre correctamente");
                 }
-            } else {
-                System.out.println("Escriba el nombre correctamente");
             }
         }
+
+
+
+
     }
     private void mostrarEquipo(ArrayList<Equipo> equipo, Personaje personaje) {
         HashMap<String, Equipo> armas = personaje.getArmas();
         HashMap<String, Equipo> armaduras = personaje.getArmaduras();
         System.out.println(personaje.getNombre());
 
-        if(armas.isEmpty()){
+        if(armas ==  null || armas.isEmpty()){
             System.out.println("No tienes armas");
         } else {
             System.out.println("\nArmas:");
@@ -250,7 +256,7 @@ public class UsuarioJugador extends User implements Serializable {
             }
         }
 
-        if(armaduras.isEmpty()){
+        if(armaduras == null || armaduras.isEmpty()){
             System.out.println("No tienes armaduras");
         } else {
             System.out.println("\nArmas:");

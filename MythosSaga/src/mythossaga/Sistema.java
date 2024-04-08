@@ -333,11 +333,12 @@ class Sistema {
                 System.out.println("Desafiante: " + d.getDesafiante().getNombre());
                 System.out.println("Desafiado: " + d.getDesafiado().getNombre());
                 System.out.println("Oro apostado: " + d.getApuesta());
-            }
-            System.out.println("Si quieres validar introduce 'VALIDAR'");
-            if (scanner.next().equals("VALIDAR")) {
-                d.setComprobado(true);
-                System.out.println("Desafio validado");
+
+                System.out.println("Si quieres validar introduce 'VALIDAR'");
+                if (scanner.next().equals("VALIDAR")) {
+                    d.setComprobado(true);
+                    System.out.println("Desafio validado");
+                }
             }
         }
         if (!desafioValidable) {
@@ -433,8 +434,9 @@ class Sistema {
                 int oro_apostado = scanner.nextInt();
                 if (oro_apostado > 0 && usuarios.get(desafiado).oroSuficiente(oro_apostado)) {
                     UsuarioJugador Desafiante = (UsuarioJugador)userActivo;
-                    UsuarioJugador personajeDesafiante = Desafiante;
-                    data.crearDesafio(personajeDesafiante,usuarioDesafiado, oro_apostado);
+                    System.out.println(Desafiante);
+                    System.out.println(usuarioDesafiado);
+                    data.crearDesafio(Desafiante,usuarioDesafiado, oro_apostado);
                     System.out.println("Desafio creado");
                     break;
                 } else {

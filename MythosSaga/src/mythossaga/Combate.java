@@ -208,11 +208,11 @@ public class Combate {
 
         int salud = 0;
         ArrayList<Esbirro> esbirrosDesafiante = personaje.getEsbirros();
-
-        for (Esbirro esbirro: esbirrosDesafiante)
-            if (esbirro.getSalud() > 0)
-                salud += esbirro.getSalud();
-
+        if(esbirrosDesafiante != null){
+            for (Esbirro esbirro: esbirrosDesafiante)
+                if (esbirro.getSalud() > 0)
+                    salud += esbirro.getSalud();
+        }
         return salud;
     }
 

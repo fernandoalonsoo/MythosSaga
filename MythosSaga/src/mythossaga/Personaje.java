@@ -143,7 +143,7 @@ public abstract class Personaje implements Serializable {
     }
 
     public ArrayList<Esbirro> getEsbirros() {
-        return esbirros;
+        return this.esbirros;
     }
 
     public void setEsbirros(ArrayList<Esbirro> esbirros) {
