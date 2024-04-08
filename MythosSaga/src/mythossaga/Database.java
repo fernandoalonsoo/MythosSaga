@@ -247,6 +247,7 @@ public class Database implements Serializable {
         // Inicializamos desafiios
 
         Desafio desafio1 = new Desafio(juan, alex, 10);
+        alex.getPersonaje().addEsbirro(new Humano(TypeEsbirro.humano, 30, Lealtad.ALTO));
         Desafio desafio2 = new Desafio(juan, guille, 20);
 
         desafio1.setComprobado(true);

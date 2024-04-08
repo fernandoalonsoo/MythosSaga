@@ -464,7 +464,6 @@ class Sistema {
         } else {
             System.out.println("No se ha encontrado a ningun jugador con ese nick");
         }
-
     }
 
     private void iniciarCombate(Desafio desafio, HashMap<String, User> usuarios, Database data) {
