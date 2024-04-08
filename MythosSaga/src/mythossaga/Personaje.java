@@ -14,8 +14,8 @@ public abstract class Personaje implements Serializable {
     private HashMap<String, Equipo> armaduras;
     private Equipo armaduraActiva;
     private int salud;
-    private int debilidad;
-    private int fortaleza;
+    private ArrayList<Modificador> debilidad;
+    private ArrayList<Modificador> fortaleza;
     private double oro;
     private int poder;
     private ArrayList<Esbirro> esbirros;
@@ -34,13 +34,13 @@ public abstract class Personaje implements Serializable {
         this.armaActiva = new Equipo[2];
         this.armaduras = new HashMap<>();
         this.armas = new HashMap<>();
-        this.debilidad = 0;
-        this.fortaleza = 0;
+        this.debilidad = new ArrayList<>();
+        this.fortaleza = new ArrayList<>();
         this.esbirros = new ArrayList<>();
     }
 
     public Personaje(String nombre, HashMap<String, Equipo> armas, Equipo[] armaActiva, HashMap<String, Equipo> armaduras, Equipo armaduraActiva, int salud,
-                     int debilidad,int fortaleza, double oro, int poder, ArrayList<Esbirro> esbirros) {
+                     ArrayList<Modificador> debilidad,ArrayList<Modificador> fortaleza, double oro, int poder, ArrayList<Esbirro> esbirros) {
         this.nombre = nombre;
         this.armas = armas;
         this.armaActiva = armaActiva;
@@ -110,19 +110,19 @@ public abstract class Personaje implements Serializable {
         this.salud = salud;
     }
 
-    public int getDebilidad() {
+    public ArrayList<Modificador> getDebilidad() {
         return debilidad;
     }
 
-    public void setDebilidad(int debilidad) {
+    public void setDebilidad(ArrayList<Modificador> debilidad) {
         this.debilidad = debilidad;
     }
 
-    public int getFortaleza() {
+    public ArrayList<Modificador> getFortaleza() {
         return fortaleza;
     }
 
-    public void setFortaleza(int fortaleza) {
+    public void setFortaleza(ArrayList<Modificador> fortaleza) {
         this.fortaleza = fortaleza;
     }
 

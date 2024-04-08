@@ -126,8 +126,12 @@ public class Combate implements Serializable {
 
     private int calcularPotencialAtaque(Personaje personaje) {
         int potencialAtaque = personaje.getPoder(); // Primero el potencial de ataque es el poder del personaje (común)
-            potencialAtaque += personaje.getFortaleza();
-            potencialAtaque -= personaje.getDebilidad();
+        for (Modificador modificador: personaje.getFortaleza())
+            potencialAtaque += modificador.getValor();
+
+        for (Modificador modificador: personaje.getDebilidad())
+            potencialAtaque -= modificador.getValor();
+
 
 
         switch (personaje) {

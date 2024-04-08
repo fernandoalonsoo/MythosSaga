@@ -210,7 +210,7 @@ class Sistema {
                         System.out.println("Introduzca el valor de la debilidad");
                         int valorDebilidad = scanner.nextInt();
                         Debilidad newDebilidad = new Debilidad(nombreDebilidad, valorDebilidad);
-                        ((UsuarioJugador) user).getPersonaje().setDebilidad(valorDebilidad);
+                        ((UsuarioJugador) user).getPersonaje().getDebilidad().add(newDebilidad);
                         System.out.println("Debilidad añadida correctamente");
                         break;
                     case 4:
@@ -219,7 +219,7 @@ class Sistema {
                         System.out.println("Introduzca el valor de la fortaleza");
                         int valorFortaleza = scanner.nextInt();
                         Fortaleza newFortaleza = new Fortaleza(nombreFortaleza, valorFortaleza);
-                        ((UsuarioJugador) user).getPersonaje().setFortaleza(valorFortaleza);
+                        ((UsuarioJugador) user).getPersonaje().getFortaleza().add(newFortaleza);
                         System.out.println("Fortaleza añadida correctamente");
                         break;
                     case 5:
@@ -361,17 +361,19 @@ class Sistema {
         for (Desafio desafio : desafios) {
             if (desafio.isComprobado() && Objects.equals(desafio.getDesafiado().getNombre(),userDesafiado.getNombre())&& !(desafio.isTerminado())) {
                 System.out.println("Tienes un desafio pendiente de " + desafio.getDesafiante().getNombre());
-                System.out.println("Si desea aceptarlo escriba 1, escriba cualquier otra cosa si desea rechazarlo");
+                System.out.println("Si desea aceptarlo escriba 1, escriba 2 para rechazarlo");
                 String accept = scanner.next();
                 if (Objects.equals(accept, "1")) {
                     iniciarCombate(desafio, usuarios, data);
                 } else {
                     desafio.setTerminado(true);
                     double oro = 0.1 * desafio.getApuesta();
-                    UsuarioJugador desafiante = (UsuarioJugador) usuarios.get(desafio.getDesafiante());
-                    desafiante.actualizarOro(oro);
-                    UsuarioJugador desafiado = (UsuarioJugador) usuarios.get(desafio.getDesafiado());
-                    desafiado.actualizarOro(-oro);
+                    User desafiante = desafio.getDesafiante();
+                    UsuarioJugador desafianteJugador = (UsuarioJugador) desafiante;
+                    desafianteJugador.actualizarOro(oro);
+                    User desafiado = desafio.getDesafiado();
+                    UsuarioJugador desafiadoJugador = (UsuarioJugador) desafiado;
+                    desafiadoJugador.actualizarOro(-oro);
                 }
             }
         }
@@ -414,6 +416,8 @@ class Sistema {
                 case 4:
                     System.out.println("Historial de combates:");
                     System.out.println("\nAtaques: ");
+                    int oroGanado = 0;
+                    int oroPerdido = 0;
                     for (Desafio desafio: desafios)
                     {
                         if (desafio.isTerminado() && desafio.getDesafiante() == userActivo){
@@ -423,6 +427,11 @@ class Sistema {
                             System.out.println("\nGanador: " + desafio.getCombate().getVencedor().getNombre());
                             System.out.println("Oro apostado: " + desafio.getApuesta());
                             System.out.println("--------------------------------");
+
+                            if (desafio.getCombate().getVencedor() == ((UsuarioJugador) userActivo).getPersonaje())
+                                oroGanado += desafio.getApuesta();
+                            else
+                                oroPerdido += desafio.getApuesta();
                         }
                     }
 
@@ -436,8 +445,17 @@ class Sistema {
                             System.out.println("\nGanador: " + desafio.getCombate().getVencedor().getNombre());
                             System.out.println("Oro apostado: " + desafio.getApuesta());
                             System.out.println("--------------------------------");
+
+
+                            if (desafio.getCombate().getVencedor() == ((UsuarioJugador) userActivo).getPersonaje())
+                                oroGanado += desafio.getApuesta();
+                            else
+                                oroPerdido += desafio.getApuesta();
                         }
                     }
+                    System.out.printf("Oro ganado: " + oroGanado);
+                    System.out.printf("\nOro perdido: -" + oroPerdido + "\n");
+
                     break;
                 case 5:
                     System.out.println("Introduzca 'SI' si desea confirmar que se da de baja");

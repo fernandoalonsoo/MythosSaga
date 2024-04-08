@@ -93,8 +93,8 @@ public class Database implements Serializable {
         Armadura armaduraVampiro = new Armadura("Coraza de la Noche", 3);
         armadurasVampiro.put(armaduraVampiro.getNombre(), armaduraVampiro);
 
-        int debilidadVampiro = 0;
-        int  fortalezaVampiro = 0;
+        ArrayList<Modificador> debilidadVampiro = new ArrayList<>();
+        ArrayList<Modificador>  fortalezaVampiro = new ArrayList<>();
         ArrayList<Esbirro> esbirrosVampiro = new ArrayList<>();
 
         // Creación del personaje Vampiro
@@ -133,8 +133,8 @@ public class Database implements Serializable {
         Armadura armaduraLicantropo = new Armadura("Cota de Mallas", 4);
         armadurasLicantropo.put(armaduraLicantropo.getNombre(), armaduraLicantropo);
 
-        int  debilidadesLicantropo = 0;
-        int  fortalezasLicantropo = 0;
+        ArrayList<Modificador>  debilidadesLicantropo = new ArrayList<>();
+        ArrayList<Modificador>  fortalezasLicantropo = new ArrayList<>();
         ArrayList<Esbirro> esbirrosLicantropo = new ArrayList<>();
 
         // Creación del personaje Licantropo

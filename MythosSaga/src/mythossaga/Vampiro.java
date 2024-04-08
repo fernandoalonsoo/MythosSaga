@@ -27,7 +27,7 @@ public class Vampiro extends Personaje implements Serializable {
     }
 
     public Vampiro(String nombre, HashMap<String, Equipo> armas, Equipo[] armaActiva, HashMap<String, Equipo> armaduras, Equipo armaduraActiva, int salud,
-                   int debilidad, int fortaleza, double oro, int poder, ArrayList<Esbirro> esbirros, Integer edad, Integer puntosSangre) {
+                   ArrayList<Modificador> debilidad, ArrayList<Modificador> fortaleza, double oro, int poder, ArrayList<Esbirro> esbirros, Integer edad, Integer puntosSangre) {
         super(nombre, armas, armaActiva, armaduras, armaduraActiva, salud, debilidad, fortaleza, oro, poder, esbirros);
         this.edad = edad;
         this.puntosSangre = puntosSangre;
