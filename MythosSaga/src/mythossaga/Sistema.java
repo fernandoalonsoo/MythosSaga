@@ -524,19 +524,19 @@ class Sistema {
             if(ranking.containsKey(vencedor.getNick())){
                 Ranking rankVencedor = ranking.get(vencedor.getNick());
                 rankVencedor.addCombateGanados();
-                rankVencedor.addCombateJugados(); // Aquí estás incrementando el número de combates jugados del vencedor
+                rankVencedor.addCombateJugados();
             } else {
                 Ranking rankVencedor = new Ranking(vencedor);
                 rankVencedor.addCombateGanados();
-                rankVencedor.addCombateJugados(); // Aquí estás incrementando el número de combates jugados del vencedor
+                rankVencedor.addCombateJugados();
                 ranking.put(vencedor.getNick(), rankVencedor);
             }
             if(ranking.containsKey(perdedor.getNick())){
                 Ranking rankPerdedor = ranking.get(perdedor.getNick());
-                rankPerdedor.addCombateJugados(); // Aquí deberías incrementar el número de combates jugados del perdedor
+                rankPerdedor.addCombateJugados();
             } else {
                 Ranking rankPerdedor = new Ranking(perdedor);
-                rankPerdedor.addCombateJugados(); // Aquí deberías incrementar el número de combates jugados del perdedor
+                rankPerdedor.addCombateJugados();
                 ranking.put(perdedor.getNick(), rankPerdedor);
             }
 
