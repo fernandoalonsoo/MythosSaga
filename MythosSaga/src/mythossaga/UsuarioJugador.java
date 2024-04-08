@@ -259,7 +259,7 @@ public class UsuarioJugador extends User implements Serializable {
         if(armaduras == null || armaduras.isEmpty()){
             System.out.println("No tienes armaduras");
         } else {
-            System.out.println("\nArmas:");
+            System.out.println("\nArmaduras:");
             Collection<Equipo> listArmaduras = armaduras.values();
             for (Equipo armadura : listArmaduras) {
                 System.out.println(armadura);

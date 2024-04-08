@@ -1,11 +1,12 @@
 package mythossaga;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.*;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 
-public class Combate {
+public class Combate implements Serializable {
     private final Personaje desafiante;
     private final Personaje desafiado;
     private int saludDesafiante;
@@ -34,8 +35,13 @@ public class Combate {
 
     }
 
+    public Personaje getVencedor() {
+        return vencedor;
+    }
 
-
+    public int getOroGanado() {
+        return oroGanado;
+    }
 
     public UsuarioJugador jugar(Desafio desafio, Database data){
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));

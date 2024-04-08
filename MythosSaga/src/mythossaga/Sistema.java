@@ -43,10 +43,10 @@ class Sistema {
 
     private void registro(Database data) {
         HashMap<String, User> usuarios = data.getUsuarios();
-        System.out.println("Introduce tu nick de usuario: ");
+        System.out.println("Introduce tu nombre: ");
         String nick = scanner.next();
         if (!usuarios.containsKey(nick)) {
-            System.out.println("Introduce tu nickname de usuario: ");
+            System.out.println("Introduce tu nickname: ");
             String usuario = scanner.next();
             System.out.println("Introduce tu contraseña: ");
             String contrasena = scanner.next();
@@ -380,8 +380,9 @@ class Sistema {
             System.out.println("Introduzca 1 para gestionar personaje");
             System.out.println("Introduzca 2 para gestionar desafios");
             System.out.println("Introduzca 3 para consultar estadísticas");
-            System.out.println("Introduzca 4 para darse de baja");
-            System.out.println("Introduzca 5 para cerrar sesión");
+            System.out.println("Introduzca 4 para consultar historial");
+            System.out.println("Introduzca 5 para darse de baja");
+            System.out.println("Introduzca 6 para cerrar sesión");
             opcion = scanner.nextInt();
             switch (opcion) {
                 case 1:
@@ -411,25 +412,53 @@ class Sistema {
                     }
                     break;
                 case 4:
+                    System.out.println("Historial de combates:");
+                    System.out.println("\nAtaques: ");
+                    for (Desafio desafio: desafios)
+                    {
+                        if (desafio.isTerminado() && desafio.getDesafiante() == userActivo){
+                            System.out.println("\n--------------------------------");
+                            System.out.println("Desafiante: " + desafio.getDesafiante().getNombre());
+                            System.out.println("Desafiante: " + desafio.getDesafiado().getNombre());
+                            System.out.println("\nGanador: " + desafio.getCombate().getVencedor().getNombre());
+                            System.out.println("Oro apostado: " + desafio.getApuesta());
+                            System.out.println("--------------------------------");
+                        }
+                    }
+
+                    System.out.println("\nDefensas: ");
+                    for (Desafio desafio: desafios)
+                    {
+                        if (desafio.isTerminado() && desafio.getDesafiado() == userActivo){
+                            System.out.println("\n--------------------------------");
+                            System.out.println("Desafiante: " + desafio.getDesafiante().getNombre());
+                            System.out.println("Desafiante: " + desafio.getDesafiado().getNombre());
+                            System.out.println("\nGanador: " + desafio.getCombate().getVencedor().getNombre());
+                            System.out.println("Oro apostado: " + desafio.getApuesta());
+                            System.out.println("--------------------------------");
+                        }
+                    }
+                    break;
+                case 5:
                     System.out.println("Introduzca 'SI' si desea confirmar que se da de baja");
                     String confirmacion = scanner.next();
                     if (Objects.equals(confirmacion, "SI")) {
                         System.out.println("Dándose de baja...");
                         System.out.println(userActivo.getNombre() + " ya no existe");
                         usuarios.remove(userActivo.getNick());
-                        opcion = 5;
+                        opcion = 6;
                     } else {
                         System.out.println("No se ha dado de baja");
                     }
                     break;
-                case 5:
+                case 6:
                     System.out.println("Cerrando sesión...");
                     break;
                 default:
                     System.out.println("Opción no válida.");
                     break;
             }
-        } while (opcion != 5);
+        } while (opcion != 6);
     }
 
     private void gestionarDesafios(Database data) {
@@ -452,8 +481,8 @@ class Sistema {
                 int oro_apostado = scanner.nextInt();
                 if (oro_apostado > 0 && usuarios.get(desafiado).oroSuficiente(oro_apostado)) {
                     UsuarioJugador Desafiante = (UsuarioJugador)userActivo;
-                    System.out.println(Desafiante);
-                    System.out.println(usuarioDesafiado);
+                    System.out.println(Desafiante.getNombre());
+                    System.out.println(usuarioDesafiado.getNombre());
                     data.crearDesafio(Desafiante,usuarioDesafiado, oro_apostado);
                     System.out.println("Desafio creado");
                     break;
@@ -485,6 +514,7 @@ class Sistema {
             Date fecha = new Date();
             Combate combate = new Combate(personajeDesafiante, personajeDesafiado, personajeDesafiante.getSalud(), personajeDesafiado.getSalud(), fecha);
             UsuarioJugador vencedor = combate.jugar(desafio, data);
+            desafio.setCombate(combate);
             UsuarioJugador perdedor;
             if(vencedor.equals(usuarioDesafiante)){
                 perdedor = (UsuarioJugador) usuarioDesafiado;
@@ -514,8 +544,6 @@ class Sistema {
             System.out.println("Uno o ambos de los desafiados no son jugadores. Un operador no puede combatir.");
             return;
         }
-
-
     }
 }
 

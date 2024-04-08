@@ -8,6 +8,7 @@ public class Desafio implements Serializable {
     private int apuesta;
     private boolean comprobado;
     private boolean terminado;
+    private Combate combate;
 
     public Desafio(UsuarioJugador desafiante, UsuarioJugador desafiado, int apuesta) {
         this.desafiante = desafiante;
@@ -59,5 +60,13 @@ public class Desafio implements Serializable {
 
     public void setComprobado(boolean comprobado) {
         this.comprobado = comprobado;
+    }
+
+    public Combate getCombate() {
+        return combate;
+    }
+
+    public void setCombate(Combate combate) {
+        this.combate = combate;
     }
 }
