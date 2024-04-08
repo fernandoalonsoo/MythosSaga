@@ -381,7 +381,7 @@ class Sistema {
             System.out.println("\nMenu");
             System.out.println("Introduzca 1 para gestionar personaje");
             System.out.println("Introduzca 2 para gestionar desafios");
-            System.out.println("Introduzca 3 para consultar estadísticas");
+            System.out.println("Introduzca 3 para consultar ranking");
             System.out.println("Introduzca 4 para consultar historial");
             System.out.println("Introduzca 5 para darse de baja");
             System.out.println("Introduzca 6 para cerrar sesión");
@@ -406,12 +406,18 @@ class Sistema {
                             .sorted(Comparator.comparingDouble(Ranking::getRatio).reversed())
                             .toList();
 
-                    System.out.println("Se mostraran a continuacion el ranking de jugadores ordenados por mejor ratio de combates ganados/peleados");
+
                     int i = 0;
-                    for (Ranking r : listaOrdenada) {
+                    if (listaOrdenada.size() != 0){
+                        System.out.println("Se mostraran a continuacion el ranking de jugadores ordenados por mejor ratio de combates ganados/peleados");
+                        for (Ranking r : listaOrdenada) {
                         i++;
                         System.out.println(i + ". " + r);
+                        }
+                        System.out.printf("\n");
                     }
+                    else
+                        System.out.printf("No se ha realizado ningun combate todavia\n");
                     break;
                 case 4:
                     System.out.println("Historial de combates:");
