@@ -524,21 +524,22 @@ class Sistema {
             if(ranking.containsKey(vencedor.getNick())){
                 Ranking rankVencedor = ranking.get(vencedor.getNick());
                 rankVencedor.addCombateGanados();
-                rankVencedor.addCombateJugados();
+                rankVencedor.addCombateJugados(); // Aquí estás incrementando el número de combates jugados del vencedor
             } else {
                 Ranking rankVencedor = new Ranking(vencedor);
                 rankVencedor.addCombateGanados();
-                rankVencedor.addCombateJugados();
-                ranking.put(vencedor.getNick(), new Ranking(vencedor));
+                rankVencedor.addCombateJugados(); // Aquí estás incrementando el número de combates jugados del vencedor
+                ranking.put(vencedor.getNick(), rankVencedor);
             }
             if(ranking.containsKey(perdedor.getNick())){
                 Ranking rankPerdedor = ranking.get(perdedor.getNick());
-                rankPerdedor.addCombateJugados();
+                rankPerdedor.addCombateJugados(); // Aquí deberías incrementar el número de combates jugados del perdedor
             } else {
                 Ranking rankPerdedor = new Ranking(perdedor);
-                rankPerdedor.addCombateJugados();
-                ranking.put(vencedor.getNick(), new Ranking(vencedor));
+                rankPerdedor.addCombateJugados(); // Aquí deberías incrementar el número de combates jugados del perdedor
+                ranking.put(perdedor.getNick(), rankPerdedor);
             }
+
 
         } else {
             System.out.println("Uno o ambos de los desafiados no son jugadores. Un operador no puede combatir.");

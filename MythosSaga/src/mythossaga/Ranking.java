@@ -1,12 +1,12 @@
 package mythossaga;
 
 public class Ranking {
-    private User jugador;
+    private UsuarioJugador jugador;
     private int combateGanados;
     private int combatesJugados;
     private float ratio;
 
-    public Ranking(User jugador) {
+    public Ranking(UsuarioJugador jugador) {
         this.jugador = jugador;
         this.combateGanados = 0;
         this.combatesJugados = 0;
@@ -44,6 +44,6 @@ public class Ranking {
 
     @Override
     public String toString() {
-        return "Nick: " + this.jugador.getNick() + ", Combates: " + this.combatesJugados + ", de los cuales ganados: " + this.combateGanados;
+        return "Nick: " + this.jugador.getNick() + " || Combates Jugados: " + this.combatesJugados + "  || Combates Ganados: " + this.combateGanados + "  || Oro del Personaje: "+jugador.getPersonaje().getOro() ;
     }
 }
