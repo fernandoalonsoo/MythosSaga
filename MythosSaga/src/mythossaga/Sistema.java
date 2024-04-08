@@ -9,11 +9,18 @@ import com.sun.security.auth.UnixNumericUserPrincipal;
 import java.io.IOException;
 import java.util.*;
 import java.util.Date;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 class Sistema {
-    public User userActivo;
 
+    public User userActivo;
     static transient Scanner scanner = new Scanner(System.in);
+
+    private HashMap<String, Ranking> ranking;
+    public Sistema(){
+        this.ranking = new HashMap<>();
+    }
     public void menuInicio(Database database) throws IOException {
         int opcion = 0;
         while (opcion != 3) {
@@ -391,6 +398,17 @@ class Sistema {
                     break;
                 case 3:
                     System.out.println("Consultando estadísticas...");
+                    List<Ranking> listaOrdenada = ranking.values()
+                            .stream()
+                            .sorted(Comparator.comparingDouble(Ranking::getRatio).reversed())
+                            .toList();
+
+                    System.out.println("Se mostraran a continuacion el ranking de jugadores ordenados por mejor ratio de combates ganados/peleados");
+                    int i = 0;
+                    for (Ranking r : listaOrdenada) {
+                        i++;
+                        System.out.println(i + ". " + r);
+                    }
                     break;
                 case 4:
                     System.out.println("Introduzca 'SI' si desea confirmar que se da de baja");
@@ -467,7 +485,31 @@ class Sistema {
 
             Date fecha = new Date();
             Combate combate = new Combate(personajeDesafiante, personajeDesafiado, personajeDesafiante.getSalud(), personajeDesafiado.getSalud(), fecha);
-            combate.jugar(desafio, data);
+            UsuarioJugador vencedor = combate.jugar(desafio, data);
+            UsuarioJugador perdedor;
+            if(vencedor.equals(usuarioDesafiante)){
+                perdedor = (UsuarioJugador) usuarioDesafiado;
+            } else {
+                perdedor = (UsuarioJugador) usuarioDesafiante;
+            }
+            if(ranking.containsKey(vencedor.getNick())){
+                Ranking rankVencedor = ranking.get(vencedor.getNick());
+                rankVencedor.addCombateGanados();
+                rankVencedor.addCombateJugados();
+            } else {
+                Ranking rankVencedor = new Ranking(vencedor);
+                rankVencedor.addCombateGanados();
+                rankVencedor.addCombateJugados();
+                ranking.put(vencedor.getNick(), new Ranking(vencedor));
+            }
+            if(ranking.containsKey(perdedor.getNick())){
+                Ranking rankPerdedor = ranking.get(perdedor.getNick());
+                rankPerdedor.addCombateJugados();
+            } else {
+                Ranking rankPerdedor = new Ranking(perdedor);
+                rankPerdedor.addCombateJugados();
+                ranking.put(vencedor.getNick(), new Ranking(vencedor));
+            }
 
         } else {
             System.out.println("Uno o ambos de los desafiados no son jugadores. Un operador no puede combatir.");

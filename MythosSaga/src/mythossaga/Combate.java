@@ -37,7 +37,7 @@ public class Combate {
 
 
 
-    public void jugar(Desafio desafio, Database data){
+    public UsuarioJugador jugar(Desafio desafio, Database data){
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Pulsa enter para comenzar el combate...");
         try {
@@ -47,10 +47,15 @@ public class Combate {
                 reader.readLine();
                 jugarRonda(desafio, data);
             }
-            terminarCombate();
+            Personaje vencedor = terminarCombate();
             desafio.setTerminado(true);
         } catch (IOException e) {
             System.out.println("Error");;
+        }
+        if(desafio.getDesafiante().getPersonaje() == vencedor){
+            return desafio.getDesafiante();
+        }else {
+            return desafio.getDesafiado();
         }
     }
 
@@ -165,7 +170,7 @@ public class Combate {
     }
 
 
-    private void terminarCombate() {
+    private Personaje terminarCombate() {
         if (this.saludDesafiante <= 0 && this.saludDesafiado <= 0) {
             System.out.println("El combate ha terminado en empate.");
         } else if (this.saludDesafiante <= 0) {
@@ -175,7 +180,7 @@ public class Combate {
             this.vencedor = this.desafiante;
             System.out.println("El combate ha terminado. El vencedor es " + this.vencedor.getNombre() + ".");
         }
-
+        return this.vencedor;
     }
 
     private int calcularPotencialDefensa(Personaje personaje) {
