@@ -1,11 +1,8 @@
 package mythossaga;
 
-import java.awt.image.AreaAveragingScaleFilter;
 import java.io.*;
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 
 public class Database implements Serializable {
@@ -295,6 +292,30 @@ public class Database implements Serializable {
 
     }
 
+    public ArrayList<Arma> getArmas() {
+        return armas;
+    }
+
+    public void setArmas(ArrayList<Arma> armas) {
+        this.armas = armas;
+    }
+
+    public void addArmas(Arma arma) {
+        this.armas.add(arma);
+    }
+
+    public ArrayList<Armadura> getArmaduras() {
+        return armaduras;
+    }
+
+    public void setArmaduras(ArrayList<Armadura> armaduras) {
+        this.armaduras = armaduras;
+    }
+
+    public void addArmaduras(Armadura armadura) {
+        this.armaduras.add(armadura);
+    }
+
     public ArrayList<String> getMensajesCazadores() {
         return mensajesCazadores;
     }
@@ -305,6 +326,25 @@ public class Database implements Serializable {
 
     public ArrayList<String> getMensajesVampiros() {
         return mensajesVampiros;
+    }
+
+    public void printUsuarios(User userActivo){
+        System.out.println("Los usuarios en el sistema son los siguientes");
+        for(User u: this.usuarios.values()){
+            if (u instanceof UsuarioJugador){
+                if (userActivo != u){
+                    System.out.println(u.getNick());
+                }
+            }
+        }
+    }
+    public void printUsuariosOperador(){
+        System.out.println("Los usuarios en el sistema son los siguientes");
+        for(User u: this.usuarios.values()){
+            if (u instanceof UsuarioJugador){
+                System.out.println(u);
+            }
+        }
     }
 }
 

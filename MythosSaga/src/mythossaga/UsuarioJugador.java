@@ -33,7 +33,12 @@ public class UsuarioJugador extends User implements Serializable {
     }
 
     @Override
-    public void menuGestionarPersonajes(Scanner scanner) {
+    public String toString() {
+        return super.toString() + " Numero registro: " + this.numeroRegistro;
+    }
+
+    @Override
+    public void menuGestionarPersonajes(Scanner scanner, Database data) {
         int opcion;
         this.scan = scanner;
         do {
@@ -48,7 +53,7 @@ public class UsuarioJugador extends User implements Serializable {
                         darBajaPersonaje();
                         break;
                     case 2:
-                        gestionarEquipo();
+                        gestionarEquipo(data);
                         break;
                     case 3:
                         System.out.println("Cerrando menu gestion de personajes");
@@ -130,7 +135,7 @@ public class UsuarioJugador extends User implements Serializable {
         } else {System.out.println("No se ha dado de baja");}
     }
 
-    public void gestionarEquipo() {
+    public void gestionarEquipo(Database data) {
         Scanner scanner = new Scanner (System.in);
         ArrayList<Equipo> equipo = new ArrayList<>();
 
@@ -147,10 +152,10 @@ public class UsuarioJugador extends User implements Serializable {
 
         switch (option) {
             case 1:
-                agregarArma(scanner, equipo, personaje);
+                agregarArma(scanner, equipo, personaje, data);
                 break;
             case 2:
-                agregarArmadura(scanner, equipo, personaje);
+                agregarArmadura(scanner, equipo, personaje, data);
                 break;
             case 3:
                 cambiarArmaActiva(scanner, equipo);
@@ -167,31 +172,19 @@ public class UsuarioJugador extends User implements Serializable {
         } while (option != 5);
     }
 
-    private void agregarArma(Scanner scanner, ArrayList<Equipo> equipo, Personaje personaje) {
-        int manosOcupadas = 0;
-        for (Equipo item : equipo) {
-            if (item instanceof Arma arma) {
-                manosOcupadas += arma.getManos();
-            }
+    private void agregarArma(Scanner scanner, ArrayList<Equipo> equipo, Personaje personaje, Database data) {
+        int i = 0;
+        System.out.println("Elija un arma que añadir a su inventario");
+
+        for(Arma arma: data.getArmas()){
+            System.out.println(++i + ". " + arma);
         }
-        if (manosOcupadas >= 2) {
-            System.out.println("El personaje ya tiene armas ocupando ambas manos. No puede agregar más.");
-            return;
+        System.out.println("introduzca el numero de arma que desea: ");
+        i = scanner.nextInt();
+        if (personaje.getArmas().containsKey(data.getArmas().get(i).getNombre())){
+            System.out.println("El arma ya esta añadida");
         } else {
-            System.out.println("Ingrese el nombre del arma:");
-            String nombre = scanner.next();
-            System.out.println("Ingrese el modificador de ataque de este arma:");
-            int modificador = scanner.nextInt();
-            System.out.println("Ingrese el número de manos que requiere este arma (1 o 2)");
-            int manos = scanner.nextInt();
-            if (manosOcupadas + manos > 2) {
-                System.out.println("El personaje no tiene suficiente espacio para esta arma. No puede agregarla.");
-                return;
-            } else {
-                Arma arma = new Arma(nombre, modificador, manos);
-                equipo.add(arma);
-                personaje.addArmas(arma);
-            }
+            personaje.addArmas(data.getArmas().get(i));
         }
 
     }
@@ -267,14 +260,20 @@ public class UsuarioJugador extends User implements Serializable {
         }
     }
 
-    private void agregarArmadura(Scanner scanner, ArrayList<Equipo> equipo, Personaje personaje) {
-        System.out.println("Ingrese el nombre de la armadura:");
-        String nombre = scanner.next();
-        System.out.println("Ingrese el modificador de defensa de la armadura:");
-        int modificadorDefensa = scanner.nextInt();
-        Armadura armadura = new Armadura(nombre, modificadorDefensa);
-        personaje.addArmadura(armadura);
-        equipo.add(armadura);
+    private void agregarArmadura(Scanner scanner, ArrayList<Equipo> equipo, Personaje personaje, Database data) {
+        int i = 0;
+        System.out.println("Elija una armadura que añadir a su inventario");
+
+        for(Armadura armadura: data.getArmaduras()){
+            System.out.println(++i + ". " + armadura);
+        }
+        System.out.println("Introduzca el numero de armadura que desea: ");
+        i = scanner.nextInt();
+        if (personaje.getArmaduras().containsKey(data.getArmaduras().get(i).getNombre())){
+            System.out.println("La armadura ya esta añadida");
+        } else {
+            personaje.addArmadura(data.getArmaduras().get(i));
+        }
     }
 
     @Override

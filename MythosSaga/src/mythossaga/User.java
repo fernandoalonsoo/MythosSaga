@@ -17,6 +17,12 @@ public abstract class User implements Serializable {
 
     // Getters y setters
 
+
+    @Override
+    public String toString() {
+        return "Nombre: " + this.nombre + " Nick: " + this.nick;
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -41,7 +47,7 @@ public abstract class User implements Serializable {
         this.password = password;
     }
 
-    public void menuGestionarPersonajes(Scanner scanner) {
+    public void menuGestionarPersonajes(Scanner scanner, Database data) {
     }
     public boolean comprobarPersonajes(){
         return false;

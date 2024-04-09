@@ -43,10 +43,10 @@ class Sistema {
 
     private void registro(Database data) {
         HashMap<String, User> usuarios = data.getUsuarios();
-        System.out.println("Introduce tu nombre: ");
+        System.out.println("Introduce tu nick: ");
         String nick = scanner.next();
         if (!usuarios.containsKey(nick)) {
-            System.out.println("Introduce tu nickname: ");
+            System.out.println("Introduce tu nombre de usuario: ");
             String usuario = scanner.next();
             System.out.println("Introduce tu contraseña: ");
             String contrasena = scanner.next();
@@ -89,6 +89,7 @@ class Sistema {
 
         do {
             System.out.println("\nMenu Operador");
+            System.out.println("Introduzca 0 para ver los usuarios");
             System.out.println("Introduzca 1 para editar personaje");
             System.out.println("Introduzca 2 para añadir items al personaje");
             System.out.println("Introduzca 3 para validar desafios");
@@ -98,13 +99,16 @@ class Sistema {
             System.out.println("Introduzca 7 para salir");
             opcion = scanner.nextInt();
             switch (opcion) {
+                case 0:
+                    data.printUsuariosOperador();
+                    break;
                 case 1:
                     System.out.println("Editando personaje");
                     editarPersonaje(usuarios);
                     break;
                 case 2:
                     System.out.println("Añadiendo items");
-                    anadirItems(usuarios);
+                    anadirItems(usuarios, data);
                     break;
                 case 3:
                     validarDesafios(desafios);
@@ -167,7 +171,7 @@ class Sistema {
         } while (opcion != 7);
     }
 
-    private void anadirItems(HashMap<String, User> usuarios) {
+    private void anadirItems(HashMap<String, User> usuarios, Database data) {
         System.out.print("Introduzca el nick del usuario al que deseas modificar su personaje: ");
         String nick = scanner.next();
         if (usuarios.containsKey(nick)) {
@@ -193,6 +197,7 @@ class Sistema {
                         int manos = scanner.nextInt();
                         Arma newArma = new Arma(nombreArma, modificadorAtaque, manos);
                         ((UsuarioJugador) user).getPersonaje().addArmas(newArma);
+                        data.addArmas(newArma);
                         System.out.println("Arma añadida correctamente");
                         break;
                     case 2:
@@ -202,6 +207,7 @@ class Sistema {
                         int modifcadorDefensa = scanner.nextInt();
                         Armadura newArmadura = new Armadura(nombreArmadura, modifcadorDefensa);
                         ((UsuarioJugador) user).getPersonaje().addArmadura(newArmadura);
+                        data.addArmaduras(newArmadura);
                         System.out.println("Armadura añadida correctamente");
                         break;
                     case 3:
@@ -380,7 +386,9 @@ class Sistema {
         do {
             System.out.println("\nMenu");
             System.out.println("Introduzca 1 para gestionar personaje");
-            System.out.println("Introduzca 2 para gestionar desafios");
+            if (((UsuarioJugador) userActivo).getPersonaje() != null){
+                System.out.println("Introduzca 2 para gestionar desafios");
+            }
             System.out.println("Introduzca 3 para consultar estadísticas");
             System.out.println("Introduzca 4 para consultar historial");
             System.out.println("Introduzca 5 para darse de baja");
@@ -389,14 +397,18 @@ class Sistema {
             switch (opcion) {
                 case 1:
                     System.out.println("Gestionando personaje...");
-                    userActivo.menuGestionarPersonajes(scanner);
+                    userActivo.menuGestionarPersonajes(scanner, data);
                     break;
                 case 2:
-                    System.out.println("Gestionando desafíos...");
-                    if (userActivo.comprobarPersonajes()) {
-                        gestionarDesafios(data);
+                    if (((UsuarioJugador) userActivo).getPersonaje() == null){
+                        System.out.println("No tienes personaje no puedes desafiar");
                     } else {
-                        System.out.println("No hay personajes creados, no se puede desafiar");
+                        System.out.println("Gestionando desafíos...");
+                        if (userActivo.comprobarPersonajes()) {
+                            gestionarDesafios(data);
+                        } else {
+                            System.out.println("No hay personajes creados, no se puede desafiar");
+                        }
                     }
                     break;
                 case 3:
@@ -480,8 +492,9 @@ class Sistema {
     }
 
     private void gestionarDesafios(Database data) {
+        data.printUsuarios(userActivo);
         HashMap<String, User> usuarios = data.getUsuarios();
-        System.out.println("DESAFIO\nIntroduzca el nombre del usuario a desafiar");
+        System.out.println("\nDESAFIO\nIntroduzca el nombre del usuario a desafiar");
         String desafiado = scanner.next();
         UsuarioJugador usuarioDesafiado = null;
         for (User usuario : usuarios.values()) {
@@ -494,20 +507,21 @@ class Sistema {
         }
 
         if (usuarios.containsKey(desafiado)) {
-            while (true) {
-                System.out.println("Introduzca la cantidad de oro a apostar");
-                int oro_apostado = scanner.nextInt();
-                if (oro_apostado > 0 && usuarios.get(desafiado).oroSuficiente(oro_apostado)) {
-                    UsuarioJugador Desafiante = (UsuarioJugador)userActivo;
-                    System.out.println(Desafiante.getNombre());
-                    System.out.println(usuarioDesafiado.getNombre());
-                    data.crearDesafio(Desafiante,usuarioDesafiado, oro_apostado);
-                    System.out.println("Desafio creado");
-                    break;
-                } else {
-                    System.out.println("No puedes apostar esa cantidad de oro");
-                }
+
+            System.out.println("Introduzca la cantidad de oro a apostar");
+            int oro_apostado = scanner.nextInt();
+            if (oro_apostado > 0 && usuarios.get(desafiado).oroSuficiente(oro_apostado)) {
+                UsuarioJugador Desafiante = (UsuarioJugador)userActivo;
+                System.out.println(Desafiante.getNombre());
+                assert usuarioDesafiado != null;
+                System.out.println(usuarioDesafiado.getNombre());
+                data.crearDesafio(Desafiante, usuarioDesafiado, oro_apostado);
+                System.out.println("Desafio creado");
+
+            } else {
+                System.out.println("No puedes apostar esa cantidad de oro");
             }
+
         } else {
             System.out.println("No se ha encontrado a ningun jugador con ese nick");
         }
