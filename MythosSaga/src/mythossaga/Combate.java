@@ -211,7 +211,17 @@ public class Combate implements Serializable {
 
                 potencialDefensa += licantropo.getValorDefensaEquipoActivo(); // Sumar el valor de defensa del equipo activo  // Si el personaje es un licántropo
             }
-      // arreglo de cazador
+            case Cazador cazador -> {
+                potencialDefensa+= cazador.getVoluntadActual(); // Sumar la voluntad actual  // Si el personaje es un cazador
+
+
+                potencialDefensa += cazador.getValorDefensaEquipoActivo(); // Sumar el valor de defensa del equipo activo  // Si el personaje es un cazador
+            }
+            default -> {
+            }
+        }
+        return potencialDefensa;
+    }
 
     private int calcularSaludEsbirros(Personaje personaje){
 
