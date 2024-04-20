@@ -28,6 +28,5 @@ public class ArmaduraTest {
         assertEquals("Nombre: Escudo, Modificador de defensa: 5", resultado,
                 "El método toString() debe devolver una cadena formateada correctamente");
     }
-    int x;
-    int j;
+
 }
