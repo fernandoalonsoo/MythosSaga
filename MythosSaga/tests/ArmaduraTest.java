@@ -29,4 +29,5 @@ public class ArmaduraTest {
                 "El método toString() debe devolver una cadena formateada correctamente");
     }
     int x;
+    int x;
 }
