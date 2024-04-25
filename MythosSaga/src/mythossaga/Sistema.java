@@ -12,10 +12,11 @@ import java.util.Date;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-class Sistema {
+public class Sistema {
 
     public User userActivo;
     static transient Scanner scanner = new Scanner(System.in);
+    private HashMap<String, User> usuarios;
 
     private HashMap<String, Ranking> ranking;
     public Sistema(){
@@ -23,6 +24,7 @@ class Sistema {
     }
     public void menuInicio(Database database) throws IOException {
         int opcion = 0;
+        usuarios = database.getUsuarios();
         while (opcion != 3) {
             System.out.println("-----------------------");
             System.out.println("  MYTHOSSAGA ");
@@ -42,7 +44,6 @@ class Sistema {
     }
 
     private void registro(Database data) {
-        HashMap<String, User> usuarios = data.getUsuarios();
         System.out.println("Introduce tu nick: ");
         String nick = scanner.next();
         if (!usuarios.containsKey(nick)) {
@@ -60,7 +61,6 @@ class Sistema {
     }
 
     private void login(Database data) {
-        HashMap<String, User> usuarios = data.getUsuarios();
         System.out.print("Introduce el nick: ");
         String nick = scanner.next();
         System.out.print("Introduce la contraseña: ");
@@ -578,6 +578,12 @@ class Sistema {
             return;
         }
     }
+
+
+    public HashMap<String, User> getUsuarios() {
+        return this.usuarios;
+    }
+
 }
 
 

@@ -1,3 +1,5 @@
+package test;
+
 import mythossaga.Desafio;
 import mythossaga.UsuarioJugador;
 import org.junit.jupiter.api.Test;
