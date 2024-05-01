@@ -167,7 +167,7 @@ public class Combate implements Serializable {
     }
 
 
-    private int  calcularExitos(int potencial) {
+    public int  calcularExitos(int potencial) {
 
         int exitos = 0;
         Random random = new Random();

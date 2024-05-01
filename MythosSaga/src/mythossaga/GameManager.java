@@ -9,7 +9,7 @@ import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-class GameManager {
+public class GameManager {
     public void run() throws IOException, ClassNotFoundException {
         Sistema system = new Sistema();
         Database data;
