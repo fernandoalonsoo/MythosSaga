@@ -21,6 +21,17 @@ class PersonajeTest {
     }
 
     @Test
+    public void testPersonajesFallido(){
+        //Error
+        Personaje instanceC = new Cazador("Fer");
+        Personaje instanceL = new Licantropo("Fer");
+        Personaje instanceV = new Vampiro("Fer");
+        assertEquals(instanceV, instanceL);
+        assertEquals(instanceV, instanceC);
+        assertEquals(instanceL, instanceC);
+    }
+
+    @Test
     public void testAddArma(){
         Personaje instance = new Cazador("G");
         Arma arma1 = new Arma("Espada", 2, 0);

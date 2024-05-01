@@ -19,6 +19,18 @@ public class ArmaduraTest {
     }
 
     @Test
+    public void testNewArmaduraError() {
+        // Arrange
+        Armadura armadura = new Armadura("Escudo", 5);
+        Armadura armadura1 = new Armadura("Escudo", 5);
+        // Act
+        int valorDefensa = armadura.getValorDefensa();
+        //Error
+        assertEquals(armadura, armadura1);
+
+    }
+
+    @Test
     public void testToString() {
         // Arrange
         Armadura armadura = new Armadura("Escudo", 5);
