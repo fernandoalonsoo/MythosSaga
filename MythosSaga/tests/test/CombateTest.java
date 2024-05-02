@@ -2,6 +2,7 @@
 package test;
 
 import mythossaga.*;
+import mythossaga.GameManager;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
@@ -15,15 +16,17 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions.*;
 
 public class CombateTest {
-    private Combate combate;
+    private Combate combate = new Combate(new Vampiro("Willy"), new Cazador("Nano"), 20, 17, new Date());
     private Database database;
     private Desafio desafio;
     private UsuarioJugador uDesafiante;
     private UsuarioJugador uDesafiado;
 
-    public CombateTest() throws IOException, FileNotFoundException, ClassNotFoundException {
+    @Test
+    public void CombateTest() throws IOException, FileNotFoundException, ClassNotFoundException {
         GameManager gameManager = new GameManager();
-        this.database = gameManager.loadData();
+        this.database = new Database();
+        this.database.inicializarDatabase();
 
         //this.database = new Database();
 

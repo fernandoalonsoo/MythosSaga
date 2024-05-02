@@ -1,10 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package mythossaga;
 
-import javax.xml.crypto.Data;
+
 import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
