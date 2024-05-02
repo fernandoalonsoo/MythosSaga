@@ -9,8 +9,7 @@ public class EsbirroTest {
 
     @Test
     void getNombreEsbirroDemonio(){
-        Esbirro esbirro = new Demonio(TypeEsbirro.demonio, 3, "Soy Jose, dicen que dios no catiga dos " +
-                                                     "veces, pero soy chileno y Ana no me hace caso");
+        Esbirro esbirro = new Demonio(TypeEsbirro.demonio, 3, "Ofrezco poder y gloria a cambio de tu alma " );
 
         assertEquals(esbirro.getNombre(), TypeEsbirro.demonio);
         assertNotEquals(esbirro.getNombre(), TypeEsbirro.humano);
