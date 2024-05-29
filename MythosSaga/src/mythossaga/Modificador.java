@@ -19,4 +19,11 @@ public abstract class Modificador implements Serializable {
         return valor;
     }
 
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setValor(int valor) {
+        this.valor = valor;
+    }
 }
