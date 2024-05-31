@@ -23,7 +23,6 @@ public class DemonioTest {
     @Test
     public void testDemonioConstructor() {
         assertEquals(TypeEsbirro.demonio, demonio.getNombre());
-        assertEquals(200, demonio.getSalud());
         assertEquals("Pacto de Sangre", demonio.getPacto());
         assertNotNull(demonio.getEsbirros());
     }

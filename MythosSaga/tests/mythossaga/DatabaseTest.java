@@ -13,11 +13,13 @@ import static org.junit.Assert.*;
 public class DatabaseTest {
 
     private Database database;
+    private User user;
 
     @Before
     public void setUp() {
         database = new Database();
         database.inicializarDatabase();
+        user = new UsuarioJugador("nombre","nick", "password");
     }
 
     @Test
@@ -28,8 +30,7 @@ public class DatabaseTest {
 
     @Test
     public void testGetDesafios() {
-        ArrayList<Desafio> desafios = database.getDesafios();
-        assertNotNull(desafios);
+        assertNotNull(database.getDesafios());
     }
 
     @Test
@@ -40,38 +41,36 @@ public class DatabaseTest {
 
     @Test
     public void testCheckNick() {
-        User user = new UsuarioJugador("nombre", "nick", "password");
-        boolean result = database.checkNick("testNick");
+        database.nuevoUsuario(user);
+        boolean result = database.checkNick("nick");
         assertTrue(result);
     }
 
     @Test
     public void testNuevoUsuario() {
-        User user = new UsuarioJugador("nombre", "nick", "password");
         database.nuevoUsuario(user);
-        assertEquals(user, database.getUsuarios().get("newUser"));
+        assertEquals(user, database.getUsuarios().get("nick"));
     }
 
     @Test
     public void testEliminarUsuario() {
-        User user = new UsuarioJugador("nombre", "nick", "password");
         database.nuevoUsuario(user);
-        database.eliminarUsuario("deleteUser");
-        assertNull(database.getUsuarios().get("deleteUser"));
+        database.eliminarUsuario("nick");
+        assertNull(database.getUsuarios().get("nick"));
     }
 
     @Test
     public void testCheckLogIN() {
-        User user = new UsuarioJugador("nombre", "nick", "password");
         database.nuevoUsuario(user);
-        boolean result = database.checkLogIN("loginUser", "password");
+        boolean result = database.checkLogIN("nick", "password");
         assertTrue(result);
     }
 
     @Test
     public void testCrearDesafio() {
-        UsuarioJugador desafiante = new UsuarioJugador("desafiante", "nick", "password");
-        UsuarioJugador desafiado = new UsuarioJugador("desafiado", "nick", "password");
+        database.getDesafios().clear();  // Asegúrate de que la lista de desafíos esté vacía antes de empezar la prueba
+        UsuarioJugador desafiante = new UsuarioJugador("nombre","nick", "password");
+        UsuarioJugador desafiado = new UsuarioJugador("nombre","nick", "password");
         database.crearDesafio(desafiante, desafiado, 100);
         assertEquals(1, database.getDesafios().size());
     }
@@ -85,8 +84,7 @@ public class DatabaseTest {
 
     @Test
     public void testGetArmas() {
-        ArrayList<Arma> armas = database.getArmas();
-        assertNotNull(armas);
+        assertNotNull(database.getArmas());
     }
 
     @Test
@@ -98,15 +96,14 @@ public class DatabaseTest {
 
     @Test
     public void testAddArmas() {
-        Arma arma = new Arma("nombre", 1, 1);
+        Arma arma = new Arma("Espada", 10, 1);
         database.addArmas(arma);
         assertTrue(database.getArmas().contains(arma));
     }
 
     @Test
     public void testGetArmaduras() {
-        ArrayList<Armadura> armaduras = database.getArmaduras();
-        assertNotNull(armaduras);
+        assertNotNull(database.getArmaduras());
     }
 
     @Test
@@ -118,26 +115,23 @@ public class DatabaseTest {
 
     @Test
     public void testAddArmaduras() {
-        Armadura armadura = new Armadura("nombre", 1);
+        Armadura armadura = new Armadura("Cota de malla", 15);
         database.addArmaduras(armadura);
         assertTrue(database.getArmaduras().contains(armadura));
     }
 
     @Test
     public void testGetMensajesCazadores() {
-        ArrayList<String> mensajesCazadores = database.getMensajesCazadores();
-        assertNotNull(mensajesCazadores);
+        assertNotNull(database.getMensajesCazadores());
     }
 
     @Test
     public void testGetMensajesLicantropos() {
-        ArrayList<String> mensajesLicantropos = database.getMensajesLicantropos();
-        assertNotNull(mensajesLicantropos);
+        assertNotNull(database.getMensajesLicantropos());
     }
 
     @Test
     public void testGetMensajesVampiros() {
-        ArrayList<String> mensajesVampiros = database.getMensajesVampiros();
-        assertNotNull(mensajesVampiros);
+        assertNotNull(database.getMensajesVampiros());
     }
 }

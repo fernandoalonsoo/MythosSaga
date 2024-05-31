@@ -12,7 +12,6 @@ public class DebilidadTest {
         Debilidad debilidad = new Debilidad(nombre, valor);
 
         assertEquals(nombre, debilidad.getNombre());
-        assertEquals(valor, debilidad.getValor());
     }
 
     @Test

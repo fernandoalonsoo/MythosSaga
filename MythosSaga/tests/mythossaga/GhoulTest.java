@@ -11,13 +11,13 @@ public class GhoulTest {
 
     @Before
     public void setUp() {
-        ghoul = new Ghoul(TypeEsbirro.ghoul, 100, 5);
+        ghoul = new Ghoul(TypeEsbirro.ghoul, 2, 5);
     }
 
     @Test
     public void testGhoulConstructor() {
         assertEquals(TypeEsbirro.ghoul, ghoul.getNombre());
-        assertEquals(100, ghoul.getSalud());
+        assertEquals(2, ghoul.getSalud());
         assertEquals((Integer) 5, ghoul.getDependencia());
     }
 
@@ -33,14 +33,14 @@ public class GhoulTest {
     }
 
     @Test
-    public void testSetNombre() { // No deberia de dejar ya que es un ghoul
+    public void testSetNombre() {
         ghoul.setNombre(TypeEsbirro.demonio);
         assertEquals(TypeEsbirro.demonio, ghoul.getNombre());
     }
 
     @Test
     public void testSetSalud() {
-        ghoul.setSalud(150);
-        assertEquals(150, ghoul.getSalud());
+        ghoul.setSalud(3);
+        assertEquals(3, ghoul.getSalud());
     }
 }

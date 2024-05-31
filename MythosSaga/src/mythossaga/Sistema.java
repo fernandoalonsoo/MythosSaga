@@ -82,7 +82,7 @@ public class Sistema {
         }
     }
 
-    private void menuOperadores(Database data) {
+    public void menuOperadores(Database data) {
         HashMap<String, User> usuarios = data.getUsuarios();
         ArrayList<Desafio> desafios = data.getDesafios();
         int opcion;
@@ -359,7 +359,7 @@ public class Sistema {
         }
     }
 
-    private void menuUsuario(Database data) {
+    public void menuUsuario(Database data) {
         HashMap<String, User> usuarios = data.getUsuarios();
         ArrayList<Desafio> desafios = data.getDesafios();
         int opcion;
