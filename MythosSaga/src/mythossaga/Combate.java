@@ -65,7 +65,7 @@ public class Combate implements Serializable {
         }
     }
 
-    private void jugarRonda(Desafio desafio, Database data) {
+    protected void jugarRonda(Desafio desafio, Database data) {
         this.round++;
 
         System.out.println("Ronda " + this.round + ":");
@@ -124,7 +124,7 @@ public class Combate implements Serializable {
     }
 
 
-    private int calcularPotencialAtaque(Personaje personaje) {
+    protected int calcularPotencialAtaque(Personaje personaje) {
         int potencialAtaque = personaje.getPoder(); // Primero el potencial de ataque es el poder del personaje (común)
         for (Modificador modificador: personaje.getFortaleza())
             potencialAtaque += modificador.getValor();
@@ -180,7 +180,7 @@ public class Combate implements Serializable {
     }
 
 
-    private Personaje terminarCombate(Desafio desafio) {
+    protected Personaje terminarCombate(Desafio desafio) {
         if (this.saludDesafiante <= 0 && this.saludDesafiado <= 0) {
             System.out.println("El combate ha terminado en empate.");
         } else if (this.saludDesafiante <= 0) {
@@ -197,7 +197,7 @@ public class Combate implements Serializable {
         return this.vencedor;
     }
 
-    private int calcularPotencialDefensa(Personaje personaje) {
+    protected int calcularPotencialDefensa(Personaje personaje) {
         int potencialDefensa= 0 ;
 
         switch (personaje) {
@@ -223,7 +223,7 @@ public class Combate implements Serializable {
         return potencialDefensa;
     }
 
-    private int calcularSaludEsbirros(Personaje personaje){
+    protected int calcularSaludEsbirros(Personaje personaje){
 
         int salud = 0;
         ArrayList<Esbirro> esbirrosDesafiante = personaje.getEsbirros();
@@ -235,7 +235,7 @@ public class Combate implements Serializable {
         return salud;
     }
 
-    private void mensaje(Personaje atacante,  Database data) {
+    protected void mensaje(Personaje atacante,  Database data) {
         Random random = new Random();
         String mensajeSeleccionado = "";
 
@@ -256,5 +256,14 @@ public class Combate implements Serializable {
 
         // Imprimir el mensaje seleccionado
         System.out.println(mensajeSeleccionado);
+    }
+
+
+    public Personaje getDesafiante() {
+        return desafiante;
+    }
+
+    public Personaje getDesafiado() {
+        return desafiado;
     }
 }

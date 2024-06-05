@@ -1,94 +1,58 @@
 package mythossaga;
 
-
-import mythossaga.*;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
+
 public class CazadorTest {
 
-    public CazadorTest() {
+    private Cazador cazador1;
+    private Cazador cazador2;
+
+    @Before
+    public void setUp() {
+        cazador1 = new Cazador("Cazador1");
+        List<Equipo> armas = new ArrayList<>();
+        List<Equipo> armaduras = new ArrayList<>();
+        List<Modificador> debilidades = new ArrayList<>();
+        List<Modificador> fortalezas = new ArrayList<>();
+        ArrayList<Esbirro> esbirros = new ArrayList<>();
+        cazador2 = new Cazador("Cazador2", armas, null, armaduras, null, 100, debilidades, fortalezas, 50, 30, esbirros, 20);
     }
 
     @Test
-    public void testGetVoluntad() {
-        Habilidad habilidad3 = new Talento("Talento", 1, 2);
-        HashMap<String,Arma> armas3 = new HashMap<String,Arma>();
-        Arma arma31 = new Arma("La temida Tartaria", 3, 2);
-        Arma arma32 = new Arma("Hacha naranja", 3, 1);
-        Arma arma33 = new Arma("Espada que cae de canto", 2, 0);
-        armas3.put("La temida Tartaria", arma31);
-        armas3.put("Hacha naranja", arma32);
-        armas3.put("Espada que cae de canto", arma33);
+    public void testCazadorConstructor() {
+        // Caso 1
+        assertEquals("Cazador1", cazador1.getNombre());
+        assertNull(cazador1.getVoluntadActual());
 
-        HashMap<String,Armadura> armaduras3 = new HashMap<String,Armadura>();
-        Armadura armadura31 = new Armadura("Brazaletes de Zeus", 0);
-        Armadura armadura32 = new Armadura("Camiseta del lol", 2);
-        Armadura armadura33 = new Armadura("Pechera de diamante", 1);
-        armaduras3.put("Brazaletes de Zeus", armadura31);
-        armaduras3.put("Camiseta del lol", armadura32);
-        armaduras3.put("Pechera de diamante", armadura33);
-
-        ArrayList<Esbirro> esbirros3 = new ArrayList<Esbirro>();
-        Esbirro esbirro31 = new Ghoul(TypeEsbirro.humano, 2, 2);
-        Esbirro esbirro32 = new Humano(TypeEsbirro.demonio,3 , Lealtad.ALTO);
-        esbirros3.add(esbirro31);
-        esbirros3.add(esbirro32);
-
-        ArrayList<Debilidad> debilidades3 = new ArrayList<Debilidad>();
-        Debilidad debilidad31 = new Debilidad("Pequeño", 2);
-        Debilidad debilidad32 = new Debilidad("Despistado", 3);
-        debilidades3.add(debilidad31);
-        debilidades3.add(debilidad32);
-
-        ArrayList<Fortaleza> fortalezas3 = new ArrayList<Fortaleza>();
-        Fortaleza fortaleza31 = new Fortaleza("Buena punteria", 3);
-        Fortaleza fortaleza32 = new Fortaleza("Aguante", 2);
-        fortalezas3.add(fortaleza31);
-        fortalezas3.add(fortaleza32);
-
+        // Caso 2
+        assertEquals("Cazador2", cazador2.getNombre());
+        assertEquals(20, cazador2.getVoluntadActual());
+        assertEquals(100, cazador2.getSalud());
+        assertEquals(30, cazador2.getPoder());
+        assertEquals(50, cazador2.getOro());
     }
 
     @Test
-    public void testSetVoluntad() {
-        Integer voluntad = null;
-        Habilidad habilidad3 = new Talento("Talento", 1, 2);
-        HashMap<String,Arma> armas3 = new HashMap<String,Arma>();
-        Arma arma31 = new Arma("La temida Tartaria", 3, 2);
-        Arma arma32 = new Arma("Hacha naranja", 3, 1);
-        Arma arma33 = new Arma("Espada que cae de canto", 2, 0);
-        armas3.put("La temida Tartaria", arma31);
-        armas3.put("Hacha naranja", arma32);
-        armas3.put("Espada que cae de canto", arma33);
+    public void testGetValorAtaqueTalento() {
+        // Caso 1
+        assertEquals(0, cazador1.getValorAtaqueTalento());
 
-        HashMap<String,Armadura> armaduras3 = new HashMap<String,Armadura>();
-        Armadura armadura31 = new Armadura("Brazaletes de Zeus", 0);
-        Armadura armadura32 = new Armadura("Camiseta del lol", 2);
-        Armadura armadura33 = new Armadura("Pechera de diamante", 1);
-        armaduras3.put("Brazaletes de Zeus", armadura31);
-        armaduras3.put("Camiseta del lol", armadura32);
-        armaduras3.put("Pechera de diamante", armadura33);
-
-        ArrayList<Esbirro> esbirros3 = new ArrayList<Esbirro>();
-        Esbirro esbirro31 = new Ghoul(TypeEsbirro.humano, 2, 2);
-        Esbirro esbirro32 = new Humano(TypeEsbirro.demonio,3 , Lealtad.ALTO);
-        esbirros3.add(esbirro31);
-        esbirros3.add(esbirro32);
-
-        ArrayList<Debilidad> debilidades3 = new ArrayList<Debilidad>();
-        Debilidad debilidad31 = new Debilidad("Pequeño", 2);
-        Debilidad debilidad32 = new Debilidad("Despistado", 3);
-        debilidades3.add(debilidad31);
-        debilidades3.add(debilidad32);
-
-        ArrayList<Fortaleza> fortalezas3 = new ArrayList<Fortaleza>();
-        Fortaleza fortaleza31 = new Fortaleza("Buena punteria", 3);
-        Fortaleza fortaleza32 = new Fortaleza("Aguante", 2);
-        fortalezas3.add(fortaleza31);
-        fortalezas3.add(fortaleza32);
+        // Caso 2
+        assertEquals(30, cazador2.getValorAtaqueTalento());
     }
 
+    @Test
+    public void testGetVoluntadActual() {
+        // Caso 1
+        assertNull(cazador1.getVoluntadActual());
+
+        // Caso 2
+        assertEquals(20, cazador2.getVoluntadActual());
+    }
 }

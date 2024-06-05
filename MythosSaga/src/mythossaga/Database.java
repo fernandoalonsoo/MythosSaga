@@ -328,6 +328,18 @@ public class Database implements Serializable {
         return mensajesVampiros;
     }
 
+    public void setMensajesCazadores(ArrayList<String> mensajesCazadores) {
+        this.mensajesCazadores = mensajesCazadores;
+    }
+
+    public void setMensajesLicantropos(ArrayList<String> mensajesLicantropos) {
+        this.mensajesLicantropos = mensajesLicantropos;
+    }
+
+    public void setMensajesVampiros(ArrayList<String> mensajesVampiros) {
+        this.mensajesVampiros = mensajesVampiros;
+    }
+
     public void printUsuarios(User userActivo){
         System.out.println("Los usuarios en el sistema son los siguientes");
         for(User u: this.usuarios.values()){

@@ -25,6 +25,11 @@ public class DemonioTest {
         assertEquals(TypeEsbirro.demonio, demonio.getNombre());
         assertEquals("Pacto de Sangre", demonio.getPacto());
         assertNotNull(demonio.getEsbirros());
+
+        Demonio demonio2 = new Demonio(TypeEsbirro.demonio, 300, "Pacto Infernal");
+        assertEquals(TypeEsbirro.demonio, demonio2.getNombre());
+        assertEquals("Pacto Infernal", demonio2.getPacto());
+        assertNotNull(demonio2.getEsbirros());
     }
 
     @Test
@@ -32,6 +37,9 @@ public class DemonioTest {
         ArrayList<Esbirro> esbirros = demonio.getEsbirros();
         assertNotNull(esbirros);
         assertTrue(esbirros.isEmpty());
+
+        demonio.addEsbirros(esbirro1);
+        assertFalse(demonio.getEsbirros().isEmpty());
     }
 
     @Test
@@ -41,6 +49,12 @@ public class DemonioTest {
         esbirros.add(esbirro2);
         demonio.setEsbirros(esbirros);
         assertEquals(esbirros, demonio.getEsbirros());
+
+        ArrayList<Esbirro> esbirros2 = new ArrayList<>();
+        Esbirro esbirro3 = new Demonio(TypeEsbirro.demonio, 120, "Pacto de Fuego");
+        esbirros2.add(esbirro3);
+        demonio.setEsbirros(esbirros2);
+        assertEquals(esbirros2, demonio.getEsbirros());
     }
 
     @Test
@@ -52,16 +66,27 @@ public class DemonioTest {
         demonio.addEsbirros(esbirro2);
         assertTrue(demonio.getEsbirros().contains(esbirro2));
         assertEquals(2, demonio.getEsbirros().size());
+
+        Esbirro esbirro3 = new Demonio(TypeEsbirro.demonio, 120, "Pacto de Fuego");
+        demonio.addEsbirros(esbirro3);
+        assertTrue(demonio.getEsbirros().contains(esbirro3));
+        assertEquals(3, demonio.getEsbirros().size());
     }
 
     @Test
     public void testGetPacto() {
         assertEquals("Pacto de Sangre", demonio.getPacto());
+
+        Demonio demonio2 = new Demonio(TypeEsbirro.demonio, 250, "Pacto Infernal");
+        assertEquals("Pacto Infernal", demonio2.getPacto());
     }
 
     @Test
     public void testSetPacto() {
         demonio.setPacto("Nuevo Pacto");
         assertEquals("Nuevo Pacto", demonio.getPacto());
+
+        demonio.setPacto("Pacto de Fuego");
+        assertEquals("Pacto de Fuego", demonio.getPacto());
     }
 }

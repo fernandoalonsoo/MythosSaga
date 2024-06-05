@@ -1,7 +1,5 @@
 package mythossaga;
 
-import mythossaga.Desafio;
-import mythossaga.UsuarioJugador;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -9,23 +7,33 @@ public class DesafioTest {
 
     @Test
     public void testConstructorAndGetters() {
-
         UsuarioJugador desafiante = new UsuarioJugador("Juan", "juan123", "password");
         UsuarioJugador desafiado = new UsuarioJugador("Pedro", "pedro456", "password");
         int apuesta = 50;
 
         Desafio desafio = new Desafio(desafiante, desafiado, apuesta);
 
-        assertEquals(desafiante, desafio.getDesafiante(), "El desafiante no coincide con el valor esperado");
-        assertEquals(desafiado, desafio.getDesafiado(), "El desafiado no coincide con el valor esperado");
-        assertEquals(apuesta, desafio.getApuesta(), "La apuesta no coincide con el valor esperado");
-        assertFalse(desafio.isTerminado(), "El desafío no debería estar terminado por defecto");
-        assertFalse(desafio.isComprobado(), "El desafío no debería estar comprobado por defecto");
+        assertEquals(desafiante, desafio.getDesafiante());
+        assertEquals(desafiado, desafio.getDesafiado());
+        assertEquals(apuesta, desafio.getApuesta());
+        assertFalse(desafio.isTerminado());
+        assertFalse(desafio.isComprobado());
+
+        UsuarioJugador desafiante2 = new UsuarioJugador("Ana", "ana789", "password");
+        UsuarioJugador desafiado2 = new UsuarioJugador("Luis", "luis012", "password");
+        int apuesta2 = 100;
+
+        Desafio desafio2 = new Desafio(desafiante2, desafiado2, apuesta2);
+
+        assertEquals(desafiante2, desafio2.getDesafiante());
+        assertEquals(desafiado2, desafio2.getDesafiado());
+        assertEquals(apuesta2, desafio2.getApuesta());
+        assertFalse(desafio2.isTerminado());
+        assertFalse(desafio2.isComprobado());
     }
 
     @Test
     public void testSetters() {
-
         UsuarioJugador desafiante = new UsuarioJugador("Juan", "juan123", "password");
         UsuarioJugador desafiado = new UsuarioJugador("Pedro", "pedro456", "password");
         Desafio desafio = new Desafio(desafiante, desafiado, 50);
@@ -34,8 +42,16 @@ public class DesafioTest {
         desafio.setTerminado(true);
         desafio.setComprobado(true);
 
-        assertEquals(100, desafio.getApuesta(), "La apuesta no coincide con el valor esperado después de cambiarla");
-        assertTrue(desafio.isTerminado(), "El desafío debería estar terminado después de establecerlo");
-        assertTrue(desafio.isComprobado(), "El desafío debería estar comprobado después de establecerlo");
+        assertEquals(100, desafio.getApuesta());
+        assertTrue(desafio.isTerminado());
+        assertTrue(desafio.isComprobado());
+
+        desafio.setApuesta(200);
+        desafio.setTerminado(false);
+        desafio.setComprobado(false);
+
+        assertEquals(200, desafio.getApuesta());
+        assertFalse(desafio.isTerminado());
+        assertFalse(desafio.isComprobado());
     }
 }
